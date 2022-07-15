@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(distPath));
 
-app.get('/', () => {
+app.get('/', (req, res) => {
   console.log('this is get');
 });
 
