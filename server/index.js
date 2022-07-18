@@ -3,6 +3,8 @@ const express = require('express');
 const http = require('http');
 const { Users } = require('./db/index.js');
 
+const API_KEY = process.env.API_KEY;
+const API_ID = process.env.API_ID;
 
 const port = 8000;
 

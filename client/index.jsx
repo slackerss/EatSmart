@@ -1,6 +1,8 @@
+/* eslint-disable import/extensions */
+/* eslint-disable no-undef */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-require('dotenv').config();
+import App from './components/App.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<h1>hello world!</h1>);
+root.render(<App />);
