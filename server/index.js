@@ -3,8 +3,11 @@ const express = require('express');
 const http = require('http');
 const { Users } = require('./db/index.js');
 
-const API_KEY = process.env.API_KEY;
-const API_ID = process.env.API_ID;
+const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
+const RECIPES_API_ID = process.env.RECIPES_API_ID;
+
+const NUTRITION_API_ID = process.env.NUTRITION_API_ID;
+const NUTRITION_API_KEY = process.env.NUTRITION_API_KEY;
 
 const port = 8000;
 
@@ -16,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(distPath));
 
-app.get('/', (req, res) => {
+app.get(`/api/nutrition-data?app_id=${NUTRITION_API_ID}&app_key=${NUTRITION_API_KEY}&nutrition-type=logging&ingr=chicken`, (req, res) => {
   console.log('this is get');
 });
 
