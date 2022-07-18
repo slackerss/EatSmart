@@ -16,6 +16,7 @@ app.use(express.static(distPath));
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'), (data, err) => { 
+    console.log(`I'm getting stuff`);
     if(err){
       res.status(500).send(err);
     } 
