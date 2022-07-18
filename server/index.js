@@ -14,8 +14,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(distPath));
 
-app.get('/', (req, res) => {
-  console.log('this is get');
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'), (data, err) => { 
+    if(err){
+      res.status(500).send(err);
+    } 
+    
+   })
 });
 
 const server = http.createServer(app);
