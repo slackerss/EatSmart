@@ -3,13 +3,12 @@ const { Schema, model } = mongoose;
 require('dotenv').config();
 const URI = process.env.DB_Connect;
 
-console.log(URI);
 
-mongoose.connect(URI, () => {
-    console.log('connected to database');
-})
+
+mongoose.connect(URI)
+.then(() => {console.log('connected to database');})
     .catch(err => {
-        console.log(err);
+        console.log('mongoose error' ,err);
     });
 
 const UserProfile = new Schema(

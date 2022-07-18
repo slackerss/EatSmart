@@ -1,6 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-require('dotenv').config();
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from 'react-router-dom';
+
+import App from './components/App.jsx';
+import Profile from './components/Profile.jsx';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<h1>hello world!</h1>);
+root.render(<BrowserRouter>
+  <Routes>
+    <Route path="/" element={<App />} />
+    <Route path="profile" element={<Profile />} />
+  </Routes>
+</BrowserRouter>);
