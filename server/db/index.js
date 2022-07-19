@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
+
 const { Schema, model } = mongoose;
 require('dotenv').config();
+
 const URI = process.env.DB_Connect;
-
-
 
 mongoose.connect(URI)
 .then(() => {console.log('connected to database');})
@@ -12,11 +12,11 @@ mongoose.connect(URI)
     });
 
 const UserProfile = new Schema(
-    {
-        username: String,
-    }
+  {
+    username: String,
+  },
 );
 
 module.exports = {
-    Users: model('Users', UserProfile)
+  Users: model('Users', UserProfile),
 };
