@@ -4,8 +4,8 @@ const http = require('http');
 const { Users } = require('./db/index.js');
 const { default: axios } = require('axios');
 
-const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
-const RECIPES_API_ID = process.env.RECIPES_API_ID;
+const RECIPES_API_KEY = process.env.API_KEY;
+const RECIPES_API_ID = process.env.API_ID;
 
 const NUTRITION_API_ID = process.env.NUTRITION_API_ID;
 const NUTRITION_API_KEY = process.env.NUTRITION_API_KEY;
@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(distPath));
 
-app.get('/*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(
     path.resolve(__dirname, '..', 'dist', 'index.html'),
     (data, err) => {
@@ -49,8 +49,24 @@ app.get('/foodlogger', (req, res) => {
     });
 });
 
-const server = http.createServer(app);
+app.get('/search', (req, res) => {
+  const { query } = req.query;
+  axios
+    .get(
+      `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${RECIPES_API_ID}&app_key=${RECIPES_API_KEY}`
+    )
+    .then((response) => {
+      const { data } = response;
+      res.status(200).send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+});
 
-server.listen(port, () => {
+// const server = http.createServer(app);
+
+app.listen(port, () => {
   console.log(`listening @ http://127.0.0.1:${port}`);
 });
