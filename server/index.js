@@ -20,8 +20,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(distPath));
 
-app.get('/', (req, res) => {
-  console.log('this is get');
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'), (data, err) => { 
+    console.log(`I'm getting stuff`);
+    if(err){
+      res.status(500).send(err);
+    } 
+    
+   })
 });
 
 app.get('/foodlogger', (req, res) => {
@@ -32,6 +38,7 @@ app.get('/foodlogger', (req, res) => {
       const { FAT, CHOCDF, PROCNT} = data.data.totalNutrients;
       console.log(`calories: ${calories}, fat: ${FAT.quantity}, carbs:${CHOCDF.quantity}, protein:${PROCNT.quantity}`);
     })
+    .catch((err) => { console.log(err) })
 })
 
 const server = http.createServer(app);

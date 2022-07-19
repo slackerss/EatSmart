@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import CalorieCalc from './CalorieCalc.jsx';
 import FoodLogList from './FoodLogList.jsx';
+import Navbar from './Navbar.jsx';
 
 const App = () => {
 
@@ -11,13 +11,7 @@ const App = () => {
   return (
     <div>
       <h1>EatSmart</h1>
-      <nav style={{
-        borderBottom: "solid 1px",
-        paddingBottom: "1rem"
-      }}
-      >
-        <Link to="/profile">Profile component</Link>
-      </nav>
+      <Navbar />
       <div>Search component</div>
       <CalorieCalc />
       <div>Log component</div>
