@@ -7,15 +7,24 @@ import {
   Routes,
   Route
 } from 'react-router-dom';
+import Auth0ProviderWithNavigate from './auth/auth0-provider-with-navigate.jsx';
 
 import App from './components/App.jsx';
 import Profile from './components/Profile.jsx';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<BrowserRouter>
+root.render(
+<BrowserRouter>
+
+  <Auth0ProviderWithNavigate>
+  
   <Routes>
     <Route path="/" element={<App />} />
     <Route path="profile" element={<Profile />} />
   </Routes>
-</BrowserRouter>);
+
+  </Auth0ProviderWithNavigate>
+  
+</BrowserRouter>
+);
