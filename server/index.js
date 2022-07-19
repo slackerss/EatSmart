@@ -3,6 +3,7 @@ const express = require('express');
 const http = require('http');
 const { Users } = require('./db/index.js');
 const { default: axios } = require('axios');
+const { CatchingPokemonSharp } = require('@mui/icons-material');
 
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 const RECIPES_API_ID = process.env.RECIPES_API_ID;
@@ -21,13 +22,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(distPath));
 
 app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'), (data, err) => { 
+  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'), (data, err) => {
     console.log(`I'm getting stuff`);
-    if(err){
+    if (err) {
       res.status(500).send(err);
-    } 
-    
-   })
+    }
+
+  })
 });
 
 app.get('/foodlogger', (req, res) => {
@@ -35,10 +36,44 @@ app.get('/foodlogger', (req, res) => {
     .get(`https://api.edamam.com/api/nutrition-data?app_id=${NUTRITION_API_ID}&app_key=${NUTRITION_API_KEY}&nutrition-type=logging&ingr=chicken`)
     .then(data => {
       const { calories } = data.data;
-      const { FAT, CHOCDF, PROCNT} = data.data.totalNutrients;
+      const { FAT, CHOCDF, PROCNT } = data.data.totalNutrients;
       console.log(`calories: ${calories}, fat: ${FAT.quantity}, carbs:${CHOCDF.quantity}, protein:${PROCNT.quantity}`);
     })
     .catch((err) => { console.log(err) })
+})
+
+app.post('/', (req, res) => {
+  const { user } = req.body;
+  const newUser = new Users(user);
+
+  Users.findOne({ 'username': `${user.username}` })
+    .then(result => {
+      if (!result) {
+        newUser.save()
+          .then(() => {
+            console.log('New user added');
+            res.sendStatus(200);
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      }
+    })
+    .catch(err => {
+      console.error('User already exists');
+      res.sendStatus(500);
+    })
+})
+
+app.get('/savedRecipes', (req, res) => {
+  Recipes.find({})
+    .then(recipes => {
+      res.status(200).send(recipes);
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    })
 })
 
 const server = http.createServer(app);
