@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+
 const { Schema, model } = mongoose;
 require('dotenv').config();
+
 const URI = process.env.DB_Connect;
 
 mongoose

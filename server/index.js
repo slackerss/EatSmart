@@ -4,6 +4,12 @@ const http = require('http');
 const { Users } = require('./db/index.js');
 const { default: axios } = require('axios');
 
+const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
+const RECIPES_API_ID = process.env.RECIPES_API_ID;
+
+const NUTRITION_API_ID = process.env.NUTRITION_API_ID;
+const NUTRITION_API_KEY = process.env.NUTRITION_API_KEY;
+
 const port = 8000;
 
 const distPath = path.resolve(__dirname, '..', 'dist');
@@ -17,21 +23,32 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(distPath));
 
-app.get('/', (req, res) => {});
+app.get('/*', (req, res) => {
+  res.sendFile(
+    path.resolve(__dirname, '..', 'dist', 'index.html'),
+    (data, err) => {
+      console.log(`I'm getting stuff`);
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
+});
 
-app.get('/search', (req, res) => {
+app.get('/foodlogger', (req, res) => {
   axios
     .get(
-      `https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=${RECIPE_ID}&app_key=${RECIPE_API_KEY}`
-      //`https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=7c2fe60d&app_key=5a7a44cb2b97d5a90ed35cd70dfa2e2c`
+      `https://api.edamam.com/api/nutrition-data?app_id=${NUTRITION_API_ID}&app_key=${NUTRITION_API_KEY}&nutrition-type=logging&ingr=chicken`
     )
     .then((data) => {
-      //res.status(200).send(data);
-      console.log(data);
+      const { calories } = data.data;
+      const { FAT, CHOCDF, PROCNT } = data.data.totalNutrients;
+      console.log(
+        `calories: ${calories}, fat: ${FAT.quantity}, carbs:${CHOCDF.quantity}, protein:${PROCNT.quantity}`
+      );
     })
     .catch((err) => {
       console.log(err);
-      //res.sendStatus(500);
     });
 });
 
