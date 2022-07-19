@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const http = require('http');
-const { Users } = require('./db/index.js');
+const { Users, RecipeList } = require('./db/index.js');
 const { default: axios } = require('axios');
 const { CatchingPokemonSharp } = require('@mui/icons-material');
 
@@ -42,38 +42,47 @@ app.get('/foodlogger', (req, res) => {
     .catch((err) => { console.log(err) })
 })
 
-app.post('/', (req, res) => {
+app.post('/profile', (req, res) => {
   const { user } = req.body;
   const newUser = new Users(user);
 
-  Users.findOne({ 'username': `${user.username}` })
+  
+  Users.findOne({ 'username': `${user.username}`})
     .then(result => {
       if (!result) {
         newUser.save()
           .then(() => {
             console.log('New user added');
-            res.sendStatus(200);
+            res.sendStatus(201);
           })
           .catch(err => {
             console.error(err);
+            res.sendStatus(500)
           });
       }
+      console.log('found user')
+      res.sendStatus(500);
     })
     .catch(err => {
-      console.error('User already exists');
+      console.log('User already exists', err);
       res.sendStatus(500);
     })
 })
 
-app.get('/savedRecipes', (req, res) => {
-  Recipes.find({})
-    .then(recipes => {
-      res.status(200).send(recipes);
-    })
-    .catch(err => {
-      console.log(err);
-      res.sendStatus(500);
-    })
+app.post('/myrecipes', (req, res) => {
+  const { recipe } = req.body;
+  
+  RecipeList.create(recipe)
+  .then((data) => {
+    console.log('recipe saved');
+    res.sendStatus(201)
+  })
+  .catch((err) => {
+    console.log('could not save recipe', err);
+    res.sendStatus(500)
+  })
+
+
 })
 
 const server = http.createServer(app);
