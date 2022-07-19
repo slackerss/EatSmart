@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const http = require('http');
-const { Users } = require('./db/index.js');
+const { Users, RecipeList } = require('./db/index.js');
 const { default: axios } = require('axios');
 
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
@@ -65,7 +65,54 @@ app.get('/search', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 // const server = http.createServer(app);
+=======
+app.post('/profile', (req, res) => {
+  const { user } = req.body;
+  const newUser = new Users(user);
+
+  
+  Users.findOne({ 'username': `${user.username}`})
+    .then(result => {
+      if (!result) {
+        newUser.save()
+          .then(() => {
+            console.log('New user added');
+            res.sendStatus(201);
+          })
+          .catch(err => {
+            console.error(err);
+            res.sendStatus(500)
+          });
+      }
+      console.log('found user')
+      res.sendStatus(500);
+    })
+    .catch(err => {
+      console.log('User already exists', err);
+      res.sendStatus(500);
+    })
+})
+
+app.post('/myrecipes', (req, res) => {
+  const { recipe } = req.body;
+  
+  RecipeList.create(recipe)
+  .then((data) => {
+    console.log('recipe saved');
+    res.sendStatus(201)
+  })
+  .catch((err) => {
+    console.log('could not save recipe', err);
+    res.sendStatus(500)
+  })
+
+
+})
+
+const server = http.createServer(app);
+>>>>>>> c08d1b1ecc898c9effa2d968bb4fa40e37a98084
 
 app.listen(port, () => {
   console.log(`listening @ http://127.0.0.1:${port}`);
