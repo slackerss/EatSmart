@@ -1,6 +1,9 @@
 import React from 'react';
 
 import Navbar from './Navbar.jsx';
+import LoginButton from './Login-button.jsx';
+import SignupButton from './Signup-button.jsx';
+import LogoutButton from './Logout-button.jsx';
 
 function Profile() {
 
@@ -9,7 +12,10 @@ function Profile() {
     <div>
       <h1>EatSmart</h1>
       <Navbar />
-      <h2>Welcome back User</h2>
+      <LoginButton />
+      <LogoutButton />
+      <h2>New User?</h2>
+      <SignupButton />
       <div>Profile View</div>
     </div>
   )
