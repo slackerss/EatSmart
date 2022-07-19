@@ -4,8 +4,8 @@ const http = require('http');
 const { Users } = require('./db/index.js');
 const { default: axios } = require('axios');
 
-const RECIPES_API_KEY = process.env.API_KEY;
-const RECIPES_API_ID = process.env.API_ID;
+const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
+const RECIPES_API_ID = process.env.RECIPES_API_ID;
 
 const NUTRITION_API_ID = process.env.NUTRITION_API_ID;
 const NUTRITION_API_KEY = process.env.NUTRITION_API_KEY;
