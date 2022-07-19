@@ -16,9 +16,6 @@ const distPath = path.resolve(__dirname, '..', 'dist');
 
 const app = express();
 
-const RECIPE_API_KEY = process.env.API_KEY;
-const RECIPE_ID = process.env.API_ID;
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(distPath));
