@@ -21,7 +21,7 @@ const App = () => {
 
   useEffect(() => {
     getSavedRecipes();
-  });
+  }, []);
 
   return (
     <div>
@@ -30,7 +30,7 @@ const App = () => {
       <div>Search component</div>
       <CalorieCalc />
       <div>Log component</div>
-      <SavedRecipesList savedRecipes={ savedRecipes }/>
+      <SavedRecipesList savedRecipes={ savedRecipes } getSavedRecipes={ getSavedRecipes }/>
     </div>
   )
 }

@@ -62,6 +62,8 @@ app.post('/profile', (req, res) => {
 
 app.post('/myrecipes', (req, res) => {
   const { recipe } = req.body;
+
+  console.log(req.body);
   
   RecipeList.create(recipe)
   .then((data) => {
@@ -85,6 +87,23 @@ app.get('/myrecipes', (req, res) => {
     console.log(err);
     res.sendStatus(500);
   })
+})
+
+app.delete('/myrecipes/:_id', (req, res) => {
+  const { _id } = req.params;
+
+  RecipeList.deleteOne({ _id })
+    .then((response) => {
+      if (response.deletedCount) {
+        res.sendStatus(200);
+      } else {
+        res.sendStatus(404);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    })
 })
 
 app.get('/*', (req, res) => {
