@@ -16,6 +16,8 @@ function Profile() {
     return (
       <div>
         <h1>Who are you</h1>
+
+        <Navbar />
         <LoginButton />
       </div>
     )
