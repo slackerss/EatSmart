@@ -3,8 +3,6 @@ import React from 'react';
 import Navbar from './Navbar.jsx';
 
 function Profile() {
-
-
   return (
     <div>
       <h1>EatSmart</h1>
