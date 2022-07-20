@@ -4,7 +4,7 @@ import axios from 'axios';
 import SavedRecipe from "./SavedRecipe.jsx";
 
 
-const FoodLogList = ({ savedRecipes }) => {
+const SavedRecipesList = ({ savedRecipes }) => {
     return (
        <div className="saved_recipe">
         {
@@ -18,4 +18,4 @@ const FoodLogList = ({ savedRecipes }) => {
     )
 }
 
-export default FoodLogList;
+export default SavedRecipesList;
