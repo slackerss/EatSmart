@@ -6,6 +6,18 @@ function SearchFeed() {
 
   let recipeResults;
 
+  if (searchResults !== '404') {
+    recipeResults = searchResults.map((recipe) => {
+      return <RecipeTile />;
+    });
+  } else {
+    return (
+      <div>
+        <h4 className='sub-heading'> Sorry We Found No Results </h4>
+      </div>
+    );
+  }
+
   return (
     <div className='container'>
       <div className='row'>{recipeResults}</div>

@@ -14,23 +14,15 @@ mongoose
     console.log('mongoose error', err);
   });
 
-<<<<<<< HEAD
 const UserProfile = new Schema({
   username: String,
+  weight: Number,
+  height: Number,
+  age: Number,
+  sex: String,
+  recipeList: String,
+  calorieCount: Number,
 });
-=======
-const UserProfile = new Schema(
-  {
-    username: String,
-    weight: Number,
-    height: Number,
-    age: Number,
-    sex: String,
-    recipeList: String,
-    calorieCount: Number
-  },
-);
->>>>>>> c08d1b1ecc898c9effa2d968bb4fa40e37a98084
 
 const Recipes = new Schema({
   name: String,
@@ -40,11 +32,11 @@ const Recipes = new Schema({
   recipeLink: String,
   recipe_URI: {
     type: String,
-    unique: true
-  }
-})
+    unique: true,
+  },
+});
 
 module.exports = {
   Users: model('Users', UserProfile),
-  RecipeList: model('RecipeList', Recipes)
+  RecipeList: model('RecipeList', Recipes),
 };

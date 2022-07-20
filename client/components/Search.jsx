@@ -2,6 +2,7 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { AppContext } from '../context/AppContext.jsx';
+import SearchFeed from './SearchFeed.jsx';
 
 function Search() {
   const { searchResults, searchRecipes } = useContext(AppContext);
@@ -15,12 +16,17 @@ function Search() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <input type='text' {...register('query')} />
-        <input type='submit' value='Search' />
+    <div className='search-body'>
+      <div className='search-bar'>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <input type='text' {...register('query')} />
+            <input type='submit' value='Search' />
+          </div>
+        </form>
       </div>
-    </form>
+      <SearchFeed />
+    </div>
   );
 }
 
