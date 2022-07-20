@@ -7,26 +7,23 @@ import Navbar from './Navbar.jsx';
 import Search from './Search.jsx';
 
 const App = () => {
-<<<<<<< HEAD
-=======
+  const [savedRecipes, setSavedRecipes] = useState([]);
 
-  const [ savedRecipes, setSavedRecipes ] = useState([]);
-  
   const getSavedRecipes = () => {
-    axios.get('/myrecipes')
-      .then(({data}) => {
+    axios
+      .get('/myrecipes')
+      .then(({ data }) => {
         setSavedRecipes(data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
-      })
-  }
+      });
+  };
 
   useEffect(() => {
     getSavedRecipes();
   });
 
->>>>>>> 6f0ea3f1afac8c71fee2a482d697df92220cd513
   return (
     <div>
       <h1>EatSmart</h1>
@@ -34,7 +31,7 @@ const App = () => {
       <Search />
       <CalorieCalc />
       <div>Log component</div>
-      <SavedRecipesList savedRecipes={ savedRecipes }/>
+      <SavedRecipesList savedRecipes={savedRecipes} />
     </div>
   );
 };

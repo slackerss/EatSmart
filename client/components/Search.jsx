@@ -16,17 +16,17 @@ function Search() {
   };
 
   return (
-    <div className='search-body'>
-      <div className='search-bar'>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <input type='text' {...register('query')} />
-            <input type='submit' value='Search' />
-          </div>
-        </form>
+    // <div className='search-body'>
+    // <div className='search-bar'>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <input type='text' {...register('query')} />
+        <input type='submit' value='Search' />
       </div>
-      <SearchFeed />
-    </div>
+    </form>
+    // </div>
+    // <SearchFeed />
+    // </div>
   );
 }
 
