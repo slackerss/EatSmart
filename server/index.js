@@ -20,6 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(distPath));
 
+
 app.get('/foodlogger', (req, res) => {
   axios
     .get(
@@ -106,15 +107,12 @@ app.get('/myrecipes', (req, res) => {
 });
 
 app.get('/*', (req, res) => {
-  res.sendFile(
-    path.resolve(__dirname, '..', 'dist', 'index.html'),
-    (data, err) => {
-      // console.log(`I'm getting stuff`);
-      if (err) {
-        res.status(500).send(err);
-      }
+  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'), (data, err) => {
+    
+    if (err) {
+      res.status(500).send(err);
     }
-  );
+});
 });
 
 const server = http.createServer(app);
