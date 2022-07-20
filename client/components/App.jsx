@@ -22,7 +22,7 @@ const App = () => {
 
   useEffect(() => {
     getSavedRecipes();
-  });
+  }, []);
 
   return (
     <div>
