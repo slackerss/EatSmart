@@ -10,10 +10,9 @@ const App = () => {
   const [ savedRecipes, setSavedRecipes ] = useState([]);
   
   const getSavedRecipes = () => {
-    axios.get('/savedRecipes')
-      .then((data) => {
-        console.log(data);
-        // setSavedRecipes(data);
+    axios.get('/myrecipes')
+      .then(({data}) => {
+        setSavedRecipes(data);
       })
       .catch(err => {
         console.log(err);

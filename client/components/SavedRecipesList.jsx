@@ -6,7 +6,7 @@ import SavedRecipe from "./SavedRecipe.jsx";
 
 const FoodLogList = ({ savedRecipes }) => {
     return (
-       <div>
+       <div className="saved_recipe">
         {
             savedRecipes.map((savedRecipe, index) => {
                return (

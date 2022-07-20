@@ -21,15 +21,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(distPath));
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'), (data, err) => {
-    console.log(`I'm getting stuff`);
-    if (err) {
-      res.status(500).send(err);
-    }
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'), (data, err) => {
+//     // console.log(`I'm getting stuff`);
+//     if (err) {
+//       res.status(500).send(err);
+//     }
 
-  })
-});
+//   })
+// });
+
 
 app.get('/foodlogger', (req, res) => {
   axios
@@ -84,6 +85,18 @@ app.post('/myrecipes', (req, res) => {
 
 
 })
+
+app.get('/myrecipes', (req, res) => {
+  RecipeList.find({})
+    .then(recipes => {
+      res.status(200).send(recipes);
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    })
+})
+
 
 const server = http.createServer(app);
 
