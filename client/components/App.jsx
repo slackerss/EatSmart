@@ -4,8 +4,11 @@ import axios from 'axios';
 import CalorieCalc from './CalorieCalc.jsx';
 import SavedRecipesList from './SavedRecipesList.jsx';
 import Navbar from './Navbar.jsx';
+import Search from './Search.jsx';
 
 const App = () => {
+<<<<<<< HEAD
+=======
 
   const [ savedRecipes, setSavedRecipes ] = useState([]);
   
@@ -23,16 +26,17 @@ const App = () => {
     getSavedRecipes();
   });
 
+>>>>>>> 6f0ea3f1afac8c71fee2a482d697df92220cd513
   return (
     <div>
       <h1>EatSmart</h1>
       <Navbar />
-      <div>Search component</div>
+      <Search />
       <CalorieCalc />
       <div>Log component</div>
       <SavedRecipesList savedRecipes={ savedRecipes }/>
     </div>
-  )
-}
+  );
+};
 
 export default App;

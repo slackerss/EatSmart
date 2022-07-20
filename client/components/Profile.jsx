@@ -12,7 +12,7 @@ function Profile() {
       <h2>Welcome back User</h2>
       <div>Profile View</div>
     </div>
-  )
+  );
 }
 
 export default Profile;
