@@ -62,8 +62,6 @@ app.post('/profile', (req, res) => {
 
 app.post('/myrecipes', (req, res) => {
   const { recipe } = req.body;
-
-  console.log(req.body);
   
   RecipeList.create(recipe)
   .then((data) => {
