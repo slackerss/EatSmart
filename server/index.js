@@ -20,52 +20,44 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(distPath));
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'), (data, err) => { 
-    console.log(`I'm getting stuff`);
-    if(err){
-      res.status(500).send(err);
-    } 
-    
-   })
-});
+
 
 app.get('/foodlogger', (req, res) => {
   axios
-    .get(`https://api.edamam.com/api/nutrition-data?app_id=${NUTRITION_API_ID}&app_key=${NUTRITION_API_KEY}&nutrition-type=logging&ingr=chicken`)
-    .then(data => {
-      const { calories } = data.data;
-      const { FAT, CHOCDF, PROCNT} = data.data.totalNutrients;
-      console.log(`calories: ${calories}, fat: ${FAT.quantity}, carbs:${CHOCDF.quantity}, protein:${PROCNT.quantity}`);
-    })
-    .catch((err) => { console.log(err) })
+  .get(`https://api.edamam.com/api/nutrition-data?app_id=${NUTRITION_API_ID}&app_key=${NUTRITION_API_KEY}&nutrition-type=logging&ingr=chicken`)
+  .then(data => {
+    const { calories } = data.data;
+    const { FAT, CHOCDF, PROCNT } = data.data.totalNutrients;
+    console.log(`calories: ${calories}, fat: ${FAT.quantity}, carbs:${CHOCDF.quantity}, protein:${PROCNT.quantity}`);
+  })
+  .catch((err) => { console.log(err) })
 })
 
 app.post('/profile', (req, res) => {
   const { user } = req.body;
   const newUser = new Users(user);
-
+  
   
   Users.findOne({ 'username': `${user.username}`})
-    .then(result => {
-      if (!result) {
-        newUser.save()
-          .then(() => {
-            console.log('New user added');
-            res.sendStatus(201);
-          })
-          .catch(err => {
-            console.error(err);
-            res.sendStatus(500)
-          });
-      }
-      console.log('found user')
-      res.sendStatus(500);
-    })
-    .catch(err => {
-      console.log('User already exists', err);
-      res.sendStatus(500);
-    })
+  .then(result => {
+    if (!result) {
+      newUser.save()
+      .then(() => {
+        console.log('New user added');
+        res.sendStatus(201);
+      })
+      .catch(err => {
+        console.error(err);
+        res.sendStatus(500)
+      });
+    }
+    console.log('found user')
+    res.sendStatus(500);
+  })
+  .catch(err => {
+    console.log('User already exists', err);
+    res.sendStatus(500);
+  })
 })
 
 app.post('/myrecipes', (req, res) => {
@@ -80,9 +72,30 @@ app.post('/myrecipes', (req, res) => {
     console.log('could not save recipe', err);
     res.sendStatus(500)
   })
-
-
+  
+  
 })
+
+app.get('/myrecipes', (req, res) => {
+  RecipeList.find({})
+  .then(recipes => {
+    res.status(200).send(recipes);
+  })
+  .catch(err => {
+    console.log(err);
+    res.sendStatus(500);
+  })
+})
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'), (data, err) => {
+    // console.log(`I'm getting stuff`);
+    if (err) {
+      res.status(500).send(err);
+    }
+
+  })
+});
 
 const server = http.createServer(app);
 
