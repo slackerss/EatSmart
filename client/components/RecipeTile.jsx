@@ -1,8 +1,7 @@
-// import React from 'react';
-// import { Link } from 'react-router-dom';
+import React from 'react';
 
-// function RecipeTile() {
-//   return <div>RecipeTile</div>;
-// }
+function RecipeTile({ label, image, source, url, ingredientLines }) {
+  return <div>{(label, image, source, url, ingredientLines)}</div>;
+}
 
-// export default RecipeTile;
+export default RecipeTile;
