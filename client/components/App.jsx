@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import CalorieCalc from './CalorieCalc.jsx';
-import FoodLogList from './FoodLogList.jsx';
+import SavedRecipesList from './SavedRecipesList.jsx';
 import Navbar from './Navbar.jsx';
 import LoginButton from './Login-button.jsx';
 import SignupButton from './Signup-button.jsx';
@@ -10,6 +10,21 @@ import LogoutButton from './Logout-button.jsx';
 
 const App = () => {
 
+  const [ savedRecipes, setSavedRecipes ] = useState([]);
+  
+  const getSavedRecipes = () => {
+    axios.get('/myrecipes')
+      .then(({data}) => {
+        setSavedRecipes(data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  useEffect(() => {
+    getSavedRecipes();
+  });
 
   return (
     <div>
@@ -22,7 +37,7 @@ const App = () => {
       <div>Search component</div>
       <CalorieCalc />
       <div>Log component</div>
-      <FoodLogList />
+      <SavedRecipesList savedRecipes={ savedRecipes }/>
     </div>
   )
 }
