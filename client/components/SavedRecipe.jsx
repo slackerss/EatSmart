@@ -2,15 +2,38 @@ import React, { useState } from 'react';
 import Ingredients from './SavedIngredients.jsx';
 import axios from 'axios';
 
+import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Collapse from '@mui/material/Collapse';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import { red } from '@mui/material/colors';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Button from '@mui/material/Button';
+
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
 const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
-    const [show, setShow] = useState(false);
+    // const [show, setShow] = useState(false);
+    const [expanded, setExpanded] = useState(false);
 
     const deleteRecipe = () => {
         axios.delete(`/myrecipes/${savedRecipe._id}`)
@@ -23,8 +46,13 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
             })
     }
 
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+      };
+
     return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 }} className="recipe-card">
+        <CardHeader title={savedRecipe.label}/>
       <CardMedia
         component='img'
         height='140'
@@ -32,25 +60,36 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
         alt={ savedRecipe.label }
       />
       <CardContent>
-        <Typography gutterBottom variant='h5' component='div'>
-          {savedRecipe.label}
-        </Typography>
         <Typography gutterBottom variant='h6' component='div'>
           {Math.round(savedRecipe.calories)} Calories
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size='small' onClick={() => setShow(!show)}>
+        {/* <Button size='small' onClick={() => setShow(!show)}>
           Ingredients
-        </Button>
+        </Button> */}
         <Button size='small' onClick={deleteRecipe}>
           Delete
         </Button>
         <Button size='small' href={savedRecipe.url}>
           View Instructions
         </Button>
+        <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+        >
+            <ExpandMoreIcon/>
+        </ExpandMore>
       </CardActions>
-      {show && <Ingredients ingredients={savedRecipe.ingredients} />}
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+            <Typography>Ingredients:</Typography>
+            <Ingredients ingredients={savedRecipe.ingredientLines} />
+        </CardContent>
+      </Collapse>
+      {/* {show && <Ingredients ingredients={savedRecipe.ingredients} />} */}
     </Card>
 
 

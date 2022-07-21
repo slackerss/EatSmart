@@ -1,15 +1,30 @@
-import React, { useState } from 'react';
-import LoggedRecipe from './SavedRecipe.jsx';
-import axios from 'axios';
+import React from 'react';
 import SavedRecipe from './SavedRecipe.jsx';
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+import Container from '@mui/material/Container';
 
 const SavedRecipesList = ({ savedRecipes, getSavedRecipes }) => {
   return (
-    <div className='saved_recipe'>
-      {savedRecipes.map((savedRecipe, index) => {
-        return <SavedRecipe savedRecipe={savedRecipe} key={index} getSavedRecipes={ getSavedRecipes }/>;
-      })}
-    </div>
+    <Container>
+        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {savedRecipes.map((savedRecipe, index) => (
+                <Grid item key={index} xs={2} sm={4} md={4}>
+                    <SavedRecipe savedRecipe={savedRecipe} key={index} getSavedRecipes={ getSavedRecipes }/>
+                </Grid>
+            )
+            )}
+        </Grid>
+    </Container>
+
+
+
+
+    // <div className='saved_recipe'>
+    //   {savedRecipes.map((savedRecipe, index) => {
+    //     return <SavedRecipe savedRecipe={savedRecipe} key={index} getSavedRecipes={ getSavedRecipes }/>;
+    //   })}
+    // </div>
   );
 };
 
