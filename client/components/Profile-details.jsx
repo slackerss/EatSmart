@@ -28,43 +28,70 @@ function ProfileDetails() {
 
 
   //React Hooks and functions
-  const [sex, setSex] = useState(sexes[0].value)
+  const [sex, setSex] = useState(sexes[0].value);
+  const [userAge, setAge] = useState(28);
+  const [userHeight, setHeight] = useState(0);
+  const [userWeight, setWeight] = useState(0);
 
-  const handleSelectFieldChange = (event) => {
-    setSex(event.target.value);
+  const handleFieldChange = (event) => {
+    const { value, name } = event.target;
+    
+    // determine which setState needs to be called
+    switch(name){
+      case "Age": setAge(value)
+      break;
+      case "Weight": setWeight(value)
+      break;
+      case "Height": setHeight(value)
+      break;
+      case "Sex": setSex(value)
+      break;
+    }
+    console.log(`The ${name} field's value has been changed to ${value}`);
   }
 
+ 
   return (
     <div>
 
       <TextField
         id="Agefield"
+        name="Age"
         label="Age"
+        defaultValue={userAge}
+        onChange={handleFieldChange}
         InputLabelProps={labelProps}
         inputProps={inputProps}
       ></TextField>
 
       <TextField
         id="Heightfield"
+        name="Height"
         label="Height"
+        value={userHeight}
+        onChange={handleFieldChange}
         InputLabelProps={labelProps}
         inputProps={inputProps}
       ></TextField>
 
       <TextField
         id="Weightfield"
+        name="Weight"
         label="Weight"
+        value={userWeight}
+        onChange={handleFieldChange}
         InputLabelProps={labelProps}
         inputProps={inputProps}
       ></TextField>
 
       <TextField
         id="select-Sex"
+        name="Sex"
         select
         label="Sex"
         InputLabelProps={labelProps}
         value={sex}
-        onChange={handleSelectFieldChange}
+        onChange={handleFieldChange}
       >
 
         {sexes.map((option) => {
