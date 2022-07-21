@@ -1,7 +1,41 @@
-import React from 'react';
+// import React from 'react';
+import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
-function RecipeTile({ label, image, source, url, ingredientLines }) {
-  return <div>{(label, image, source, url, ingredientLines)}</div>;
+export default function RecipeTile({
+  label,
+  image,
+  source,
+  url,
+  ingredientLines,
+}) {
+  return (
+    <Card sx={{ maxWidth: 345 }}>
+      <CardMedia
+        component='img'
+        height='140'
+        image={image}
+        alt='recipe image'
+      />
+      <CardContent>
+        <Typography gutterBottom variant='h5' component='div'>
+          {label}
+        </Typography>
+        <Typography variant='body2' color='text.secondary'>
+          {ingredientLines}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size='small'>Save</Button>
+        <Button size='small' href={url}>
+          View Instructions
+        </Button>
+      </CardActions>
+    </Card>
+  );
 }
-
-export default RecipeTile;
