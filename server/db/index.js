@@ -5,23 +5,24 @@ require('dotenv').config();
 
 const URI = process.env.DB_Connect;
 
-mongoose.connect(URI)
-.then(() => {console.log('connected to database');})
-    .catch(err => {
-        console.log('mongoose error' ,err);
-    });
+mongoose
+  .connect(URI)
+  .then(() => {
+    console.log('connected to database');
+  })
+  .catch((err) => {
+    console.log('mongoose error', err);
+  });
 
-const UserProfile = new Schema(
-  {
-    username: String,
-    weight: Number,
-    height: Number,
-    age: Number,
-    sex: String,
-    recipeList: String,
-    calorieCount: Number
-  },
-);
+const UserProfile = new Schema({
+  username: String,
+  weight: Number,
+  height: Number,
+  age: Number,
+  sex: String,
+  recipeList: String,
+  calorieCount: Number,
+});
 
 const Recipes = new Schema({
   name: String,
@@ -31,11 +32,28 @@ const Recipes = new Schema({
   recipeLink: String,
   recipe_URI: {
     type: String,
-    unique: true
-  }
-})
+    unique: true,
+  },
+});
+const SavedRecipeSchema = new Schema({
+  label: String,
+  image: String,
+  ingredientLines: Array,
+  calories: Number,
+  source: String,
+  url: String,
+});
+const SavedRecipe = model('SavedRecipe', SavedRecipeSchema);
+
+async function saveRecipe(recipe) {
+  console.log(recipe);
+  const newRecipe = new SavedRecipe(recipe);
+  await newRecipe.save();
+}
 
 module.exports = {
   Users: model('Users', UserProfile),
-  RecipeList: model('RecipeList', Recipes)
+  RecipeList: model('RecipeList', Recipes),
+  SavedRecipe,
+  saveRecipe,
 };

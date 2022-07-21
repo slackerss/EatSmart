@@ -4,20 +4,25 @@ import axios from 'axios';
 import CalorieCalc from './CalorieCalc.jsx';
 import SavedRecipesList from './SavedRecipesList.jsx';
 import Navbar from './Navbar.jsx';
+import LoginButton from './Login-button.jsx';
+import SignupButton from './Signup-button.jsx';
+import LogoutButton from './Logout-button.jsx';
+import Search from './Search.jsx';
+
 
 const App = () => {
+  const [savedRecipes, setSavedRecipes] = useState([]);
 
-  const [ savedRecipes, setSavedRecipes ] = useState([]);
-  
   const getSavedRecipes = () => {
-    axios.get('/myrecipes')
-      .then(({data}) => {
+    axios
+      .get('/myrecipes')
+      .then(({ data }) => {
         setSavedRecipes(data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
-      })
-  }
+      });
+  };
 
   useEffect(() => {
     getSavedRecipes();
@@ -27,12 +32,17 @@ const App = () => {
     <div>
       <h1>EatSmart</h1>
       <Navbar />
-      <div>Search component</div>
+      <LoginButton />
+      <LogoutButton />
+      <h3>New to Smart?</h3>
+      <SignupButton />
+      <Search />
+      
       <CalorieCalc />
       <div>Log component</div>
-      <SavedRecipesList savedRecipes={ savedRecipes } getSavedRecipes={ getSavedRecipes }/>
+      <SavedRecipesList savedRecipes={savedRecipes} />
     </div>
-  )
-}
+  );
+};
 
 export default App;
