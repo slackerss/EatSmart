@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const http = require('http');
-const { Users, RecipeList, saveRecipe } = require('./db/index.js');
+const { Users, RecipeList, saveRecipe, SavedRecipe } = require('./db/index.js');
 const { default: axios } = require('axios');
 
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
@@ -111,7 +111,7 @@ app.post('/myrecipes', (req, res) => {
 });
 
 app.get('/myrecipes', (req, res) => {
-  RecipeList.find({})
+  SavedRecipe.find({})
     .then((recipes) => {
       res.status(200).send(recipes);
     })
@@ -124,7 +124,7 @@ app.get('/myrecipes', (req, res) => {
 app.delete('/myrecipes/:_id', (req, res) => {
   const { _id } = req.params;
 
-  RecipeList.deleteOne({ _id })
+  SavedRecipe.deleteOne({ _id })
     .then((response) => {
       if (response.deletedCount) {
         res.sendStatus(200);
