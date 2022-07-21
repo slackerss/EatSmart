@@ -13,11 +13,11 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+import FavoriteIcon from '@mui/icons-material/Favorite'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 
 const ExpandMore = styled((props) => {
@@ -52,7 +52,10 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
 
     return (
     <Card sx={{ maxWidth: 345 }} className="recipe-card">
-        <CardHeader title={savedRecipe.label}/>
+        <CardHeader 
+        action={<IconButton><DeleteOutlineIcon onClick={deleteRecipe}/></IconButton>}
+        title={savedRecipe.label} 
+        />
       <CardMedia
         component='img'
         height='140'
@@ -68,10 +71,10 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
         {/* <Button size='small' onClick={() => setShow(!show)}>
           Ingredients
         </Button> */}
-        <Button size='small' onClick={deleteRecipe}>
+        {/* <Button size='small' onClick={deleteRecipe}>
           Delete
-        </Button>
-        <Button size='small' href={savedRecipe.url}>
+        </Button> */}
+        <Button variant='contained' size='small' href={savedRecipe.url}>
           View Instructions
         </Button>
         <ExpandMore

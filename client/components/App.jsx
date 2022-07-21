@@ -39,7 +39,6 @@ const App = () => {
       <Search />
       
       <CalorieCalc />
-      <div>Log component</div>
       <SavedRecipesList savedRecipes={savedRecipes} getSavedRecipes={ getSavedRecipes }/>
     </div>
   );

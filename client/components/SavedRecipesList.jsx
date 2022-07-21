@@ -9,7 +9,7 @@ const SavedRecipesList = ({ savedRecipes, getSavedRecipes }) => {
     <Container>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             {savedRecipes.map((savedRecipe, index) => (
-                <Grid item key={index} xs={2} sm={4} md={4}>
+                <Grid item key={index} xs={2} sm={3} md={4}>
                     <SavedRecipe savedRecipe={savedRecipe} key={index} getSavedRecipes={ getSavedRecipes }/>
                 </Grid>
             )
