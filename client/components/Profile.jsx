@@ -1,17 +1,23 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
+
 import Navbar from './Navbar.jsx';
 import LoginButton from './Login-button.jsx';
-
+import ProfileDetails from './Profile-details.jsx';
 
 function Profile() {
+
+  //Auth0
   const { user, isAuthenticated, isLoading } = useAuth0();
 
+
+  //render while page is loading 
   if (isLoading) {
     return <h1>Hol up...</h1>
   }
 
+  //render when not logged in
   if (!isAuthenticated) {
     return (
       <div>
@@ -23,6 +29,9 @@ function Profile() {
     )
   }
 
+
+
+
   return (
     isAuthenticated && (
       <div>
@@ -31,9 +40,9 @@ function Profile() {
         <Navbar />
 
         <img src={user.picture} />
-        <h2>Welcome Back {user.name || 'User'}</h2>
+        <h2>Welcome Back {user.name}</h2>
+        <ProfileDetails />
 
-        <div>Profile View</div>
       </div>
     )
   )
