@@ -38,32 +38,6 @@ app.get('/foodlogger', (req, res) => {
     });
 });
 
-app.post('/profile', (req, res) => {
-  const { user } = req.body;
-  const newUser = new Users(user);
-
-  Users.findOne({ username: `${user.username}` })
-    .then((result) => {
-      if (!result) {
-        newUser
-          .save()
-          .then(() => {
-            console.log('New user added');
-            res.sendStatus(201);
-          })
-          .catch((err) => {
-            console.error(err);
-            res.sendStatus(500);
-          });
-      }
-      console.log('found user');
-      res.sendStatus(500);
-    })
-    .catch((err) => {
-      console.log('User already exists', err);
-      res.sendStatus(500);
-    });
-});
 
 app.get('/search', (req, res) => {
   const { query } = req.query;
@@ -81,6 +55,40 @@ app.get('/search', (req, res) => {
     });
 });
 
+app.get('/myrecipes', (req, res) => {
+  RecipeList.find({})
+    .then((recipes) => {
+      res.status(200).send(recipes);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+});
+
+app.put('/profile', (req, res) => {
+const { update } = req.body;
+
+
+
+// model method updateOne identifies profile by email, then updates the appropriate field
+Users.findOneAndUpdate({ email: "@email" }, update)
+.then((update) => {
+  // if update !== null
+  if(update) { 
+    res.sendStatus(200);
+  } else {
+    res.sendStatus(404);
+  }
+})
+.catch((err) => {
+  console.log(err);
+  res.sendStatus(500);
+})
+})
+
+
+
 app.post('/myrecipes', (req, res) => {
   const { recipe } = req.body;
 
@@ -95,16 +103,8 @@ app.post('/myrecipes', (req, res) => {
     });
 });
 
-app.get('/myrecipes', (req, res) => {
-  RecipeList.find({})
-    .then((recipes) => {
-      res.status(200).send(recipes);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(500);
-    });
-});
+
+
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'), (data, err) => {
