@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { TextField, MenuItem } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import axios from 'axios';
 
 //Textfield select
 const sexes = [
@@ -14,7 +18,9 @@ const sexes = [
 ]
 
 
-function ProfileDetails() {
+function ProfileDetails(props) {
+  // Destructure User from props for handleUpdateOnClick
+  const { user } = props
 
   //Material-ui: Textfield
   const inputProps = {
@@ -28,11 +34,12 @@ function ProfileDetails() {
 
 
   //React Hooks and functions
-  const [sex, setSex] = useState(sexes[0].value);
-  const [userAge, setAge] = useState(28);
+  const [userSex, setSex] = useState(sexes[0].value);
+  const [userAge, setAge] = useState(0);
   const [userHeight, setHeight] = useState(0);
   const [userWeight, setWeight] = useState(0);
 
+  // handels setting state of Textfields
   const handleFieldChange = (event) => {
     const { value, name } = event.target;
     
@@ -50,9 +57,31 @@ function ProfileDetails() {
     console.log(`The ${name} field's value has been changed to ${value}`);
   }
 
- 
+  // on Update click send axios put request that will communicate with server
+  const handleUpdateOnClick = (user) => {
+    // send axios put request passing in user email as HTTP path parameter
+    // passing in object containing state for the update
+    axios.put(`/profile/${user.email}`, {
+      age: userAge,
+      height: userHeight,
+      weight: userWeight,
+      sex: userSex
+    })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.error('could not send update to server =>', err)
+    });
+  }
+  
   return (
-    <div>
+    <Box
+    sx={{
+      border: "1px",
+      borderColor: "grey"
+    }}
+    >
 
       <TextField
         id="Agefield"
@@ -90,7 +119,7 @@ function ProfileDetails() {
         select
         label="Sex"
         InputLabelProps={labelProps}
-        value={sex}
+        value={userSex}
         onChange={handleFieldChange}
       >
 
@@ -102,8 +131,11 @@ function ProfileDetails() {
 
       </TextField>
 
+        <Button text="Update" variant="outlined"
+        onClick={() => {  handleUpdateOnClick(user) }}
+        >Update</Button>
 
-    </div>
+    </Box>
   )
 }
 

@@ -66,13 +66,14 @@ app.get('/myrecipes', (req, res) => {
     });
 });
 
-app.put('/profile', (req, res) => {
-const { update } = req.body;
+app.put('/profile/:email', (req, res) => {
+const { body } = req;
+const { email } = req.params;
 
 
 
 // model method updateOne identifies profile by email, then updates the appropriate field
-Users.findOneAndUpdate({ email: "@email" }, update)
+Users.findOneAndUpdate({ email }, body)
 .then((update) => {
   // if update !== null
   if(update) { 
@@ -82,7 +83,7 @@ Users.findOneAndUpdate({ email: "@email" }, update)
   }
 })
 .catch((err) => {
-  console.log(err);
+  console.error('There was a server error on update',err);
   res.sendStatus(500);
 })
 })
