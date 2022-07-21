@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const http = require('http');
-const { Users, RecipeList } = require('./db/index.js');
+const { Users, RecipeList, saveRecipe } = require('./db/index.js');
 const { default: axios } = require('axios');
 
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
@@ -60,6 +60,21 @@ app.post('/profile', (req, res) => {
     })
     .catch((err) => {
       console.log('User already exists', err);
+      res.sendStatus(500);
+    });
+});
+
+app.post('/search/save', (req, res) => {
+  const recipe = req.body;
+
+  console.log(req.body);
+  saveRecipe(recipe)
+    .then((data) => {
+      console.log('recipe saved');
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log('could not save recipe', err);
       res.sendStatus(500);
     });
 });

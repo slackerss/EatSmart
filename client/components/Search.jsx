@@ -11,7 +11,6 @@ function Search() {
     // form data and event
     // submit handler
     searchRecipes(data);
-    console.log(searchResults);
     e.target.reset(); // clear input after search
   };
 
