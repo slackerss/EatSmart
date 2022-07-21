@@ -74,7 +74,7 @@ function ProfileDetails(props) {
       console.error('could not send update to server =>', err)
     });
   }
-  
+  console.log(user);
   return (
     <Box
     sx={{
@@ -97,7 +97,7 @@ function ProfileDetails(props) {
         id="Heightfield"
         name="Height"
         label="Height"
-        value={userHeight}
+        defaultValue={userHeight}
         onChange={handleFieldChange}
         InputLabelProps={labelProps}
         inputProps={inputProps}
@@ -107,7 +107,7 @@ function ProfileDetails(props) {
         id="Weightfield"
         name="Weight"
         label="Weight"
-        value={userWeight}
+        defaultValue={userWeight}
         onChange={handleFieldChange}
         InputLabelProps={labelProps}
         inputProps={inputProps}
@@ -119,7 +119,7 @@ function ProfileDetails(props) {
         select
         label="Sex"
         InputLabelProps={labelProps}
-        value={userSex}
+        defaultValue={userSex}
         onChange={handleFieldChange}
       >
 

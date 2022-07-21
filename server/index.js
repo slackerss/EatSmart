@@ -66,6 +66,19 @@ app.get('/myrecipes', (req, res) => {
     });
 });
 
+app.get("/profile", (req, res) => {
+  // Destructre req.params for specific user when setting up client side
+
+  // use model method findOne to return the correct user document from the database
+  Users.findOne({ email: "erin.cwilliams0@gmail.com" })
+  .then((data) => {
+    console.log('Here is the user data', data);
+  })
+  .catch((err) => {
+    console.log('Could not find data from database', err);
+  })
+})
+
 app.put('/profile/:email', (req, res) => {
 const { body } = req;
 const { email } = req.params;
