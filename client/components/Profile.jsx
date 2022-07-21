@@ -41,7 +41,7 @@ function Profile() {
 
         <img src={user.picture} />
         <h2>Welcome Back {user.name}</h2>
-        <ProfileDetails />
+        <ProfileDetails user={user} />
 
       </div>
     )
