@@ -1,14 +1,11 @@
 const path = require('path');
 const express = require('express');
 const http = require('http');
-const { Users, RecipeList } = require('./db/index.js');
+const { Users, RecipeList, saveRecipe, SavedRecipe } = require('./db/index.js');
 const { default: axios } = require('axios');
 
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
 const RECIPES_API_ID = process.env.RECIPES_API_ID;
-
-const NUTRITION_API_ID = process.env.NUTRITION_API_ID;
-const NUTRITION_API_KEY = process.env.NUTRITION_API_KEY;
 
 const port = 8000;
 
@@ -21,23 +18,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(distPath));
 
 
-app.get('/foodlogger', (req, res) => {
-  axios
-    .get(
-      `https://api.edamam.com/api/nutrition-data?app_id=${NUTRITION_API_ID}&app_key=${NUTRITION_API_KEY}&nutrition-type=logging&ingr=chicken`
-    )
+app.post('/search/save', (req, res) => {
+  const recipe = req.body;
+
+  console.log(req.body);
+  saveRecipe(recipe)
     .then((data) => {
-      const { calories } = data.data;
-      const { FAT, CHOCDF, PROCNT } = data.data.totalNutrients;
-      console.log(
-        `calories: ${calories}, fat: ${FAT.quantity}, carbs:${CHOCDF.quantity}, protein:${PROCNT.quantity}`
-      );
+      console.log('recipe saved');
+      res.sendStatus(201);
     })
     .catch((err) => {
-      console.log(err);
+      console.log('could not save recipe', err);
+      res.sendStatus(500);
     });
 });
-
 
 app.get('/search', (req, res) => {
   const { query } = req.query;
@@ -56,7 +50,7 @@ app.get('/search', (req, res) => {
 });
 
 app.get('/myrecipes', (req, res) => {
-  RecipeList.find({})
+  SavedRecipe.find({})
     .then((recipes) => {
       res.status(200).send(recipes);
     })
@@ -130,8 +124,33 @@ app.post('/myrecipes', (req, res) => {
     });
 });
 
+app.get('/myrecipes', (req, res) => {
+  SavedRecipe.find({})
+    .then((recipes) => {
+      res.status(200).send(recipes);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+});
 
+app.delete('/myrecipes/:_id', (req, res) => {
+  const { _id } = req.params;
 
+  SavedRecipe.deleteOne({ _id })
+    .then((response) => {
+      if (response.deletedCount) {
+        res.sendStatus(200);
+      } else {
+        res.sendStatus(404);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    })
+})
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'), (data, err) => {

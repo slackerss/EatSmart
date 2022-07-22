@@ -7,6 +7,7 @@ const AppContext = createContext();
 
 function AppContextProvider({ children }) {
   const [searchResults, setSearchResults] = useState([]);
+  const [savedRecipes, setSavedRecipes] = useState([]);
 
   const searchRecipes = ({ query }) => {
     axios
@@ -17,7 +18,24 @@ function AppContextProvider({ children }) {
       })
       .catch((err) => console.error(err));
   };
-  const appProps = { searchRecipes, searchResults, setSearchResults };
+
+  const saveRecipe = (recipe) => {
+    axios
+      .post('/search/save', recipe)
+      .then((response) => {
+        console.log(response, 'recipe saved');
+        setSavedRecipes(response);
+      })
+      .catch((err) => console.error(err));
+  };
+  const appProps = {
+    searchRecipes,
+    searchResults,
+    setSearchResults,
+    savedRecipes,
+    setSavedRecipes,
+    saveRecipe,
+  };
   return <AppContext.Provider value={appProps}>{children}</AppContext.Provider>;
 }
 

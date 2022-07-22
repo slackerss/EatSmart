@@ -1,16 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
 
 
 import Navbar from './Navbar.jsx';
 import LoginButton from './Login-button.jsx';
 import ProfileDetails from './Profile-details.jsx';
+import SavedRecipesList from './SavedRecipesList.jsx';
 
 function Profile() {
 
   //Auth0
   const { user, isAuthenticated, isLoading } = useAuth0();
 
+  const [savedRecipes, setSavedRecipes] = useState([]);
+
+  const getSavedRecipes = () => {
+    axios
+      .get('/myrecipes')
+      .then(({ data }) => {
+        setSavedRecipes(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getSavedRecipes();
+  }, []);
 
   //render while page is loading 
   if (isLoading) {
@@ -34,6 +52,7 @@ function Profile() {
 
   return (
     isAuthenticated && (
+      
       <div>
         <h1>EatSmart</h1>
 
@@ -44,6 +63,8 @@ function Profile() {
         <ProfileDetails user={user} />
 
       </div>
+      
+     
     )
   )
 }

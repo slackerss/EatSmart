@@ -39,8 +39,25 @@ const Recipes = new Schema({
     unique: true,
   },
 });
+const SavedRecipeSchema = new Schema({
+  label: String,
+  image: String,
+  ingredientLines: Array,
+  calories: Number,
+  source: String,
+  url: String,
+});
+const SavedRecipe = model('SavedRecipe', SavedRecipeSchema);
+
+async function saveRecipe(recipe) {
+  console.log(recipe);
+  const newRecipe = new SavedRecipe(recipe);
+  await newRecipe.save();
+}
 
 module.exports = {
   Users: model('Users', UserProfile),
   RecipeList: model('RecipeList', Recipes),
+  SavedRecipe: model('SavedRecipe', SavedRecipeSchema),
+  saveRecipe,
 };
