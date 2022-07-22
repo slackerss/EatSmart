@@ -53,7 +53,7 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
     return (
     <Card sx={{ maxWidth: 345 }} className="recipe-card">
         <CardHeader 
-        action={<IconButton><DeleteOutlineIcon onClick={deleteRecipe}/></IconButton>}
+        action={<IconButton onClick={deleteRecipe} ><DeleteOutlineIcon /></IconButton>}
         title={savedRecipe.label} 
         />
       <CardMedia
