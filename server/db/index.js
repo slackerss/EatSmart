@@ -49,7 +49,6 @@ const SavedRecipeSchema = new Schema({
 const SavedRecipe = model('SavedRecipe', SavedRecipeSchema);
 
 async function saveRecipe(recipe) {
-  console.log(recipe);
   const newRecipe = new SavedRecipe(recipe);
   await newRecipe.save();
 }

@@ -15,7 +15,7 @@ function AppContextProvider({ children }) {
     axios
       .get('/search', { params: { query } })
       .then((response) => {
-        console.log(response.data.hits);
+        // console.log(response.data.hits);
         setSearchResults(response.data.hits);
       })
       .catch((err) => console.error(err));
@@ -26,7 +26,6 @@ function AppContextProvider({ children }) {
     axios
       .post('/search/save', recipe)
       .then((response) => {
-        console.log(response, 'recipe saved');
         setSavedRecipes(response);
       })
       .catch((err) => console.error(err));
