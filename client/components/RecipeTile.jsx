@@ -14,11 +14,14 @@ export default function RecipeTile({
   url,
   ingredientLines,
   calories,
+  fat,
+  carbs,
+  protein,
   uri,
   servings
 }) {
   const { saveRecipe } = useContext(AppContext);
-  const recipe = { label, image, source, url, ingredientLines, calories, uri, servings};
+  const recipe = { label, image, source, url, ingredientLines, calories, fat, carbs, protein, uri, servings};
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -33,6 +36,11 @@ export default function RecipeTile({
         </Typography>
         <Typography gutterBottom variant='h6' component='div'>
           {Math.round(calories)} Calories
+        </Typography>
+        <Typography>
+          Fat: {fat}
+          Carbs: {carbs}
+          protein: {protein}
         </Typography>
         <Typography variant='body2' color='text.secondary'>
           {ingredientLines}

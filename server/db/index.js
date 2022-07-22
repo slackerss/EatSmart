@@ -34,6 +34,9 @@ const SavedRecipeSchema = new Schema({
   image: String,
   ingredientLines: Array,
   calories: Number,
+  fat: Number,
+  carbs: Number,
+  protein: Number,
   source: String,
   url: String,
   uri: {
