@@ -2,14 +2,14 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import axios from 'axios';
 import React, { createContext, useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
+
 
 const AppContext = createContext();
 
 function AppContextProvider({ children }) {
   const [searchResults, setSearchResults] = useState([]);
   const [savedRecipes, setSavedRecipes] = useState([]);
-  const { isAuthenticated } = useAuth0();
+
 
   const searchRecipes = ({ query }) => {
     axios
@@ -22,9 +22,7 @@ function AppContextProvider({ children }) {
   };
 
   const saveRecipe = (recipe) => {
-    if(!isAuthenticated){
-      alert('you must sign in to save a recipe!')
-    }
+   
     axios
       .post('/search/save', recipe)
       .then((response) => {

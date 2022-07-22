@@ -43,7 +43,8 @@ const SavedRecipeSchema = new Schema({
     type: String,
     unique: true
   },
-  servings: Number 
+  servings: Number,
+  User_email: String
 });
 const SavedRecipe = model('SavedRecipe', SavedRecipeSchema);
 
