@@ -6,6 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { AppContext } from '../context/AppContext.jsx';
+import { useAuth0 } from '@auth0/auth0-react';
+
 
 export default function RecipeTile({
   label,
@@ -20,8 +22,10 @@ export default function RecipeTile({
   uri,
   servings
 }) {
+  const { user, isAuthenticated } = useAuth0();
   const { saveRecipe } = useContext(AppContext);
-  const recipe = { label, image, source, url, ingredientLines, calories, fat, carbs, protein, uri, servings};
+   const recipe = { label, image, source, url, ingredientLines, calories, fat, carbs, protein, uri, servings};
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -47,7 +51,15 @@ export default function RecipeTile({
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size='small' onClick={() => saveRecipe(recipe)}>
+        <Button size='small' onClick={() => {
+          if (!isAuthenticated) {
+            alert('you must sign in to save a recipe');
+          } else {
+            recipe.User_email = user.email
+            return saveRecipe(recipe)
+
+          }
+        }}>
           Save
         </Button>
         <Button size='small' href={url}>

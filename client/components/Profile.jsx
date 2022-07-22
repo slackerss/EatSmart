@@ -15,11 +15,15 @@ function Profile() {
 
   const [savedRecipes, setSavedRecipes] = useState([]);
 
-  const getSavedRecipes = () => {
+  const getSavedRecipes = (user) => {
+    console.log(user);
     axios
       .get('/myrecipes')
       .then(({ data }) => {
-        setSavedRecipes(data);
+        const userRecipes = data.filter((recipe) => {
+          return recipe.User_email === user.email;
+        })
+        setSavedRecipes(userRecipes);
       })
       .catch((err) => {
         console.log(err);
@@ -27,8 +31,12 @@ function Profile() {
   };
 
   useEffect(() => {
-    getSavedRecipes();
-  }, []);
+  
+    getSavedRecipes(user);
+  
+  
+  }, [isAuthenticated]);
+
 
   //render while page is loading 
   if (isLoading) {
@@ -59,7 +67,7 @@ function Profile() {
         <Navbar />
 
         <img src={user.picture} />
-        <h2>Welcome Back {user.name}</h2>
+        <h2>Welcome Back {user.email}</h2>
         <ProfileDetails user={user} />
         <SavedRecipesList savedRecipes={savedRecipes} getSavedRecipes={ getSavedRecipes }/>
       </div>

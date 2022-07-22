@@ -3,11 +3,13 @@
 import axios from 'axios';
 import React, { createContext, useState } from 'react';
 
+
 const AppContext = createContext();
 
 function AppContextProvider({ children }) {
   const [searchResults, setSearchResults] = useState([]);
   const [savedRecipes, setSavedRecipes] = useState([]);
+
 
   const searchRecipes = ({ query }) => {
     axios
@@ -20,6 +22,7 @@ function AppContextProvider({ children }) {
   };
 
   const saveRecipe = (recipe) => {
+   
     axios
       .post('/search/save', recipe)
       .then((response) => {

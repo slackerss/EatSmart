@@ -18,7 +18,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
-
+import { useAuth0 } from '@auth0/auth0-react';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -34,12 +34,13 @@ const ExpandMore = styled((props) => {
 const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
   // const [show, setShow] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const { user } = useAuth0();
 
   const deleteRecipe = () => {
     axios.delete(`/myrecipes/${savedRecipe._id}`)
       .then(() => {
         console.log('recipe deleted');
-        getSavedRecipes();
+        getSavedRecipes(user);
       })
       .catch(err => {
         console.log(err);
