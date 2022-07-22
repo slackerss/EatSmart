@@ -54,6 +54,6 @@ async function saveRecipe(recipe) {
 module.exports = {
   Users: model('Users', UserProfile),
   RecipeList: model('RecipeList', Recipes),
-  SavedRecipe,
+  SavedRecipe: model('SavedRecipe', SavedRecipeSchema),
   saveRecipe,
 };
