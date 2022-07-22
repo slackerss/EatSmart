@@ -14,9 +14,11 @@ export default function RecipeTile({
   url,
   ingredientLines,
   calories,
+  uri,
+  servings
 }) {
   const { saveRecipe } = useContext(AppContext);
-  const recipe = { label, image, source, url, ingredientLines, calories };
+  const recipe = { label, image, source, url, ingredientLines, calories, uri, servings};
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia

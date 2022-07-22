@@ -9,7 +9,7 @@ function SearchFeed() {
 
   if (searchResults !== '404') {
     recipeResults = searchResults.map(({ recipe }) => {
-      const { label, image, source, url, ingredientLines, calories } = recipe;
+      const { label, image, source, url, ingredientLines, calories, uri} = recipe;
       return (
         <RecipeTile
           label={label}
@@ -17,7 +17,10 @@ function SearchFeed() {
           url={url}
           source={source}
           ingredientLines={ingredientLines}
-          calories={calories}
+          calories={calories/recipe.yield}
+          key={uri}
+          uri={uri}
+          servings={recipe.yield}
         />
       );
     });
