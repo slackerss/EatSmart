@@ -21,9 +21,10 @@ app.use(express.static(distPath));
 app.post('/search/save', (req, res) => {
   const recipe = req.body;
 
-  // console.log(req.body);
+  console.log(req.body);
   saveRecipe(recipe)
     .then((data) => {
+      console.log('recipe saved');
       res.sendStatus(201);
     })
     .catch((err) => {
@@ -49,8 +50,6 @@ app.get('/search', (req, res) => {
 });
 
 app.get('/myrecipes', (req, res) => {
-  
-  
   SavedRecipe.find({})
     .then((recipes) => {
       res.status(200).send(recipes);
@@ -108,6 +107,22 @@ Users.findOneAndUpdate({ email }, body)
   res.sendStatus(500);
 })
 })
+
+
+
+app.post('/myrecipes', (req, res) => {
+  const { recipe } = req.body;
+
+  RecipeList.create(recipe)
+    .then((data) => {
+      console.log('recipe saved');
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log('could not save recipe', err);
+      res.sendStatus(500);
+    });
+});
 
 app.get('/myrecipes', (req, res) => {
   SavedRecipe.find({})

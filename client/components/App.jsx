@@ -4,11 +4,7 @@ import axios from 'axios';
 import CalorieCalc from './CalorieCalc.jsx';
 import SavedRecipesList from './SavedRecipesList.jsx';
 import Navbar from './Navbar.jsx';
-import LoginButton from './Login-button.jsx';
-import SignupButton from './Signup-button.jsx';
-import LogoutButton from './Logout-button.jsx';
 import Search from './Search.jsx';
-import { useAuth0 } from '@auth0/auth0-react';
 
 const App = () => {
   const [savedRecipes, setSavedRecipes] = useState([]);
@@ -26,20 +22,16 @@ const App = () => {
 
   useEffect(() => {
     getSavedRecipes();
-  }, []);
+  });
 
   return (
     <div>
       <h1>EatSmart</h1>
       <Navbar />
-      <LoginButton />
-      <LogoutButton />
-      <h3>New to Smart?</h3>
-      <SignupButton />
       <Search />
-      
       <CalorieCalc />
-      {/* <SavedRecipesList savedRecipes={savedRecipes} getSavedRecipes={ getSavedRecipes }/> */}
+      <div>Log component</div>
+      <SavedRecipesList savedRecipes={savedRecipes} />
     </div>
   );
 };
