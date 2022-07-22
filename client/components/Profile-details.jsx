@@ -35,9 +35,9 @@ function ProfileDetails(props) {
 
   //React Hooks and functions
   const [userSex, setSex] = useState(sexes[0].value);
-  const [userAge, setAge] = useState();
-  const [userHeight, setHeight] = useState();
-  const [userWeight, setWeight] = useState();
+  const [userAge, setAge] = useState(0);
+  const [userHeight, setHeight] = useState(0);
+  const [userWeight, setWeight] = useState(0);
 
   // handels setting state of Textfields
   const handleFieldChange = (event) => {
@@ -54,7 +54,7 @@ function ProfileDetails(props) {
       case "Sex": setSex(value)
         break;
     }
-    console.log(`The ${name} field's value has been changed to ${value}`);
+   
   }
 
   // on Update click send axios put request that will communicate with server
@@ -84,15 +84,23 @@ function ProfileDetails(props) {
       })
       .then((data) => {
         // setState to reflect user information
-        console.log("here's the data?", data.age)
-        setAge(data.age);
-        setWeight(data.weight);
-        setHeight(data.height);
-        setSex(data.sex);
+
+        if (data.age) {
+          setAge(data.age);
+        }
+        if (data.weight) {
+          setWeight(data.weight);
+        }
+        if (data.height) {
+          setHeight(data.height);
+        }
+        if (data.sex) {
+          setSex(data.sex);
+        }
 
       })
       .catch((err) => {
-        console.log("could not get information",err);
+        console.log("could not get information", err);
       })
   }
 
@@ -115,7 +123,7 @@ function ProfileDetails(props) {
         id="Agefield"
         name="Age"
         label="Age"
-        defaultValue={userAge}
+        value={userAge}
         onChange={handleFieldChange}
         InputLabelProps={labelProps}
         inputProps={inputProps}
@@ -125,7 +133,7 @@ function ProfileDetails(props) {
         id="Heightfield"
         name="Height"
         label="Height"
-        defaultValue={userHeight}
+        value={userHeight}
         onChange={handleFieldChange}
         InputLabelProps={labelProps}
         inputProps={inputProps}
@@ -135,7 +143,7 @@ function ProfileDetails(props) {
         id="Weightfield"
         name="Weight"
         label="Weight"
-        defaultValue={userWeight}
+        value={userWeight}
         onChange={handleFieldChange}
         InputLabelProps={labelProps}
         inputProps={inputProps}
@@ -147,7 +155,7 @@ function ProfileDetails(props) {
         select
         label="Sex"
         InputLabelProps={labelProps}
-        defaultValue={userSex}
+        value={userSex}
         onChange={handleFieldChange}
       >
 
