@@ -66,16 +66,29 @@ app.get('/myrecipes', (req, res) => {
     });
 });
 
-app.get("/profile", (req, res) => {
+app.get("/profile/:email", (req, res) => {
   // Destructre req.params for specific user when setting up client side
 
+  const email = req.params;
+ 
   // use model method findOne to return the correct user document from the database
-  Users.findOne({ email: "erin.cwilliams0@gmail.com" })
-  .then((data) => {
-    console.log('Here is the user data', data);
+  Users.findOne(email)
+  .then((userInfo) => {
+    if(!userInfo){
+
+      res.sendStatus(404);
+    } else {
+
+      // destructure necessary properties from database
+      const { age, weight, height, sex } = userInfo
+      // assign all properties to an object using object shorthand
+      const resData = { age, weight, height, sex}
+      res.status(200).send(resData);
+    }
+
   })
   .catch((err) => {
-    console.log('Could not find data from database', err);
+    console.log('Could not get data from database', err);
   })
 })
 
@@ -90,7 +103,7 @@ Users.findOneAndUpdate({ email }, body)
 .then((update) => {
   // if update !== null
   if(update) { 
-    res.sendStatus(200);
+    res.sendStatus(201);
   } else {
     res.sendStatus(404);
   }
