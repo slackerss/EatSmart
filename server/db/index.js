@@ -15,7 +15,11 @@ mongoose
   });
 
 const UserProfile = new Schema({
-  username: String,
+  connection: String,
+  email: {
+    type: String,
+    unique: true
+  },
   weight: Number,
   height: Number,
   age: Number,
