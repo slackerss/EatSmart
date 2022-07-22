@@ -1,32 +1,57 @@
 import React, { useContext } from 'react';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 import { AppContext } from '../context/AppContext.jsx';
 import RecipeTile from '../components/RecipeTile.jsx';
 
 function SearchFeed() {
-  const { searchResults, searchRecipes } = useContext(AppContext);
-
-  let recipeResults;
+  const { searchResults } = useContext(AppContext);
 
   if (searchResults !== '404') {
-    recipeResults = searchResults.map(({ recipe }) => {
-      const { label, image, source, url, ingredientLines, calories, uri, totalNutrients} = recipe;
-      return (
-        <RecipeTile
-          label={label}
-          image={image}
-          url={url}
-          source={source}
-          ingredientLines={ingredientLines}
-          calories={calories/recipe.yield}
-          fat={Math.round((totalNutrients.FAT.quantity/recipe.yield))}
-          carbs={Math.round((totalNutrients.CHOCDF.quantity/recipe.yield))}
-          protein={Math.round((totalNutrients.PROCNT.quantity/recipe.yield))}
-          key={uri}
-          uri={uri}
-          servings={recipe.yield}
-        />
-      );
-    });
+    return (
+      <Container>
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          {searchResults.map(({ recipe, index }) => {
+            const {
+              label,
+              image,
+              source,
+              url,
+              ingredientLines,
+              calories,
+              uri,
+              totalNutrients,
+            } = recipe;
+            return (
+              <Grid item key={index} xs={2} sm={3} md={4}>
+                <RecipeTile
+                  label={label}
+                  image={image}
+                  url={url}
+                  source={source}
+                  ingredientLines={ingredientLines}
+                  calories={calories / recipe.yield}
+                  fat={Math.round(totalNutrients.FAT.quantity / recipe.yield)}
+                  carbs={Math.round(
+                    totalNutrients.CHOCDF.quantity / recipe.yield
+                  )}
+                  protein={Math.round(
+                    totalNutrients.PROCNT.quantity / recipe.yield
+                  )}
+                  key={uri}
+                  uri={uri}
+                  servings={recipe.yield}
+                />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Container>
+    );
   } else {
     return (
       <div>
@@ -34,12 +59,5 @@ function SearchFeed() {
       </div>
     );
   }
-
-  return (
-    <div className='container'>
-      <div className='row'>{recipeResults}</div>
-    </div>
-  );
 }
-
 export default SearchFeed;
