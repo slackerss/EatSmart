@@ -9,15 +9,15 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+
 
 
 const ExpandMore = styled((props) => {
@@ -32,40 +32,45 @@ const ExpandMore = styled((props) => {
 }));
 
 const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
-    // const [show, setShow] = useState(false);
-    const [expanded, setExpanded] = useState(false);
+  // const [show, setShow] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
-    const deleteRecipe = () => {
-        axios.delete(`/myrecipes/${savedRecipe._id}`)
-            .then(() => {
-                console.log('recipe deleted');
-                getSavedRecipes();
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }
+  const deleteRecipe = () => {
+    axios.delete(`/myrecipes/${savedRecipe._id}`)
+      .then(() => {
+        console.log('recipe deleted');
+        getSavedRecipes();
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-      };
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
-    return (
+  return (
     <Card sx={{ maxWidth: 345 }} className="recipe-card">
-        <CardHeader 
+      <CardHeader
         action={<IconButton onClick={deleteRecipe} ><DeleteOutlineIcon /></IconButton>}
-        title={savedRecipe.label} 
-        />
+        title={savedRecipe.label}
+      />
       <CardMedia
         component='img'
         height='140'
-        image={ savedRecipe.image}
-        alt={ savedRecipe.label }
+        image={savedRecipe.image}
+        alt={savedRecipe.label}
       />
       <CardContent>
         <Typography gutterBottom variant='h6' component='div'>
           {Math.round(savedRecipe.calories)} Calories
         </Typography>
+        <List>
+          <ListItem>Fat: {savedRecipe.fat} g</ListItem>
+          <ListItem>Carbs: {savedRecipe.carbs} g</ListItem>
+          <ListItem>Protein: {savedRecipe.protein} g</ListItem>
+        </List>
       </CardContent>
       <CardActions>
         {/* <Button size='small' onClick={() => setShow(!show)}>
@@ -74,22 +79,23 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
         {/* <Button size='small' onClick={deleteRecipe}>
           Delete
         </Button> */}
+        <Button variant="contained" size='small'>Log Recipe</Button>
         <Button variant='contained' size='small' href={savedRecipe.url}>
           View Instructions
         </Button>
         <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
         >
-            <ExpandMoreIcon/>
+          <ExpandMoreIcon />
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-            <Typography>Ingredients:</Typography>
-            <Ingredients ingredients={savedRecipe.ingredientLines} />
+          <Typography>Ingredients:</Typography>
+          <Ingredients ingredients={savedRecipe.ingredientLines} />
         </CardContent>
       </Collapse>
       {/* {show && <Ingredients ingredients={savedRecipe.ingredients} />} */}
@@ -107,7 +113,7 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
     //   <button>Remove Recipe</button>
     //   {show && <Ingredients ingredients={savedRecipe.ingredients} />}
     // </div>
-    );
+  );
 };
 
 export default SavedRecipe;

@@ -39,7 +39,7 @@ const App = () => {
       <Search />
       
       <CalorieCalc />
-      <SavedRecipesList savedRecipes={savedRecipes} getSavedRecipes={ getSavedRecipes }/>
+      {/* <SavedRecipesList savedRecipes={savedRecipes} getSavedRecipes={ getSavedRecipes }/> */}
     </div>
   );
 };
