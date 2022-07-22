@@ -9,7 +9,7 @@ function SearchFeed() {
 
   if (searchResults !== '404') {
     recipeResults = searchResults.map(({ recipe }) => {
-      const { label, image, source, url, ingredientLines, calories, uri} = recipe;
+      const { label, image, source, url, ingredientLines, calories, uri, totalNutrients} = recipe;
       return (
         <RecipeTile
           label={label}
@@ -18,6 +18,9 @@ function SearchFeed() {
           source={source}
           ingredientLines={ingredientLines}
           calories={calories/recipe.yield}
+          fat={Math.round((totalNutrients.FAT.quantity/recipe.yield))}
+          carbs={Math.round((totalNutrients.CHOCDF.quantity/recipe.yield))}
+          protein={Math.round((totalNutrients.PROCNT.quantity/recipe.yield))}
           key={uri}
           uri={uri}
           servings={recipe.yield}
