@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
@@ -22,7 +22,7 @@ function ProfileDetails(props) {
   // Destructure User from props for handleUpdateOnClick
   const { user } = props
 
-  //Material-ui: Textfield
+  //Material-ui: Textfield props
   const inputProps = {
     type: 'number',
   }
@@ -35,24 +35,24 @@ function ProfileDetails(props) {
 
   //React Hooks and functions
   const [userSex, setSex] = useState(sexes[0].value);
-  const [userAge, setAge] = useState(0);
-  const [userHeight, setHeight] = useState(0);
-  const [userWeight, setWeight] = useState(0);
+  const [userAge, setAge] = useState();
+  const [userHeight, setHeight] = useState();
+  const [userWeight, setWeight] = useState();
 
   // handels setting state of Textfields
   const handleFieldChange = (event) => {
     const { value, name } = event.target;
-    
+
     // determine which setState needs to be called
-    switch(name){
+    switch (name) {
       case "Age": setAge(value)
-      break;
+        break;
       case "Weight": setWeight(value)
-      break;
+        break;
       case "Height": setHeight(value)
-      break;
+        break;
       case "Sex": setSex(value)
-      break;
+        break;
     }
     console.log(`The ${name} field's value has been changed to ${value}`);
   }
@@ -67,20 +67,48 @@ function ProfileDetails(props) {
       weight: userWeight,
       sex: userSex
     })
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((err) => {
-      console.error('could not send update to server =>', err)
-    });
+      .then(({ status }) => {
+        console.log(status);
+      })
+      .catch((err) => {
+        console.error('could not send update to server =>', err)
+      });
   }
-  console.log(user);
+
+  // send axios get request to get user information not provided by Auth0
+  const getProfileDetails = () => {
+    axios.get(`/profile/${user.email}`)
+      .then(({ data, status }) => {
+        console.log(status);
+        return data
+      })
+      .then((data) => {
+        // setState to reflect user information
+        console.log("here's the data?", data.age)
+        setAge(data.age);
+        setWeight(data.weight);
+        setHeight(data.height);
+        setSex(data.sex);
+
+      })
+      .catch((err) => {
+        console.log("could not get information",err);
+      })
+  }
+
+
+  //run immediately after rendering
+  useEffect(() => {
+    getProfileDetails();
+  }, [])
+
+
   return (
     <Box
-    sx={{
-      border: "1px",
-      borderColor: "grey"
-    }}
+      sx={{
+        border: "1px",
+        borderColor: "grey"
+      }}
     >
 
       <TextField
@@ -131,9 +159,9 @@ function ProfileDetails(props) {
 
       </TextField>
 
-        <Button text="Update" variant="outlined"
-        onClick={() => {  handleUpdateOnClick(user) }}
-        >Update</Button>
+      <Button text="Update" variant="outlined"
+        onClick={() => { handleUpdateOnClick(user) }}
+      >Update</Button>
 
     </Box>
   )
