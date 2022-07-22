@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const http = require('http');
-const { Users, RecipeList, saveRecipe, SavedRecipe } = require('./db/index.js');
+const { Users, saveRecipe, SavedRecipe } = require('./db/index.js');
 const { default: axios } = require('axios');
 
 const RECIPES_API_KEY = process.env.RECIPES_API_KEY;
