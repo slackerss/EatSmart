@@ -8,7 +8,7 @@ import LoginButton from './Login-button.jsx';
 import SignupButton from './Signup-button.jsx';
 import LogoutButton from './Logout-button.jsx';
 import Search from './Search.jsx';
-
+import { useAuth0 } from '@auth0/auth0-react';
 
 const App = () => {
   const [savedRecipes, setSavedRecipes] = useState([]);
