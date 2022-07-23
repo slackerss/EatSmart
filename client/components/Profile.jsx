@@ -7,6 +7,7 @@ import Navbar from './Navbar.jsx';
 import LoginButton from './Login-button.jsx';
 import ProfileDetails from './Profile-details.jsx';
 import SavedRecipesList from './SavedRecipesList.jsx';
+import CalorieCalc from './CalorieCalc.jsx';
 
 function Profile() {
 
@@ -30,10 +31,10 @@ function Profile() {
   };
 
   useEffect(() => {
-  
+
     getSavedRecipes(user);
-  
-  
+
+
   }, [isAuthenticated]);
 
 
@@ -68,8 +69,9 @@ function Profile() {
         <img src={user.picture} />
         <h2>Welcome Back {user.email}</h2>
         <ProfileDetails user={user} />
+        {/* <CalorieCalc/> */}
         <SavedRecipesList savedRecipes={savedRecipes} getSavedRecipes={ getSavedRecipes }/>
-      </div>
+      </div >
       
      
     )
