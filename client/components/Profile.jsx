@@ -6,6 +6,7 @@ import Navbar from './Navbar.jsx';
 import LoginButton from './Login-button.jsx';
 import ProfileDetails from './Profile-details.jsx';
 import SavedRecipesList from './SavedRecipesList.jsx';
+import CalorieCalc from './CalorieCalc.jsx';
 
 function Profile() {
   //Auth0
@@ -13,7 +14,7 @@ function Profile() {
 
   const [savedRecipes, setSavedRecipes] = useState([]);
 
-  const getSavedRecipes = () => {
+  const getSavedRecipes = (user) => {
     axios
       .get('/myrecipes')
       .then(({ data }) => {
@@ -25,8 +26,8 @@ function Profile() {
   };
 
   useEffect(() => {
-    getSavedRecipes();
-  }, []);
+    getSavedRecipes(user);
+  }, [isAuthenticated]);
 
   //render while page is loading
   if (isLoading) {
@@ -55,6 +56,11 @@ function Profile() {
         <img src={user.picture} />
         <h2>Welcome Back {user.name}</h2>
         <ProfileDetails user={user} />
+        {/* <CalorieCalc/> */}
+        <SavedRecipesList
+          savedRecipes={savedRecipes}
+          getSavedRecipes={getSavedRecipes}
+        />
       </div>
     )
   );

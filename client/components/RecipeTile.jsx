@@ -13,6 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useAuth0 } from '@auth0/auth0-react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AppContext } from '../context/AppContext.jsx';
 import Ingredients from './SavedIngredients.jsx';
@@ -43,6 +44,7 @@ export default function RecipeTile({
 }) {
   const { saveRecipe } = useContext(AppContext);
   const [expanded, setExpanded] = useState(false);
+  const { user, isAuthenticated } = useAuth0();
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -69,7 +71,17 @@ export default function RecipeTile({
           </Avatar>
         }
         action={
-          <IconButton aria-label='settings' onClick={() => saveRecipe(recipe)}>
+          <IconButton
+            aria-label='settings'
+            onClick={() => {
+              if (!isAuthenticated) {
+                alert('you must sign in to save a recipe');
+              } else {
+                recipe.User_email = user.email;
+                return saveRecipe(recipe);
+              }
+            }}
+          >
             <FavoriteIcon />
           </IconButton>
         }
