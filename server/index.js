@@ -124,6 +124,19 @@ app.get('/myrecipes', (req, res) => {
     });
 });
 
+app.get('/myrecipes/:_id', (req, res) => {
+  const { _id } = req.params;
+
+  SavedRecipe.find({ _id: _id })
+    .then(recipe => {
+      res.status(200).send(recipe);
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    })
+})
+
 app.delete('/myrecipes/:_id', (req, res) => {
   const { _id } = req.params;
 

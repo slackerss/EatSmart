@@ -8,6 +8,7 @@ const AppContext = createContext();
 function AppContextProvider({ children }) {
   const [searchResults, setSearchResults] = useState([]);
   const [savedRecipes, setSavedRecipes] = useState([]);
+  const [loggedRecipeCal, setLoggedRecipeCal] = useState(0);
 
   const searchRecipes = ({ query }) => {
     axios
@@ -28,6 +29,18 @@ function AppContextProvider({ children }) {
       })
       .catch((err) => console.error(err));
   };
+
+  // const getLoggedRecipe = () => {
+  //   axios.get(`/myrecipes/${savedRecipe._id}`)
+  //     .then(({data}) => {
+  //       console.log(Math.round(data[0].calories));
+  //       // setLoggedRecipeCal(loggedRecipeCal += (Math.round(data[0].calories)));
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     })
+  // }
+
   const appProps = {
     searchRecipes,
     searchResults,
@@ -35,6 +48,9 @@ function AppContextProvider({ children }) {
     savedRecipes,
     setSavedRecipes,
     saveRecipe,
+    // getLoggedRecipe,
+    // loggedRecipeCal,
+    // setLoggedRecipeCal
   };
   return <AppContext.Provider value={appProps}>{children}</AppContext.Provider>;
 }

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Container from '@mui/material/Container';
+import { AppContext } from '../context/AppContext.jsx';
 
 const CalorieCalc = ({ userSex, userAge, userHeight, userWeight }) => {
   const [calCnt, setCalCnt] = useState(0);
   const [calLeft, setCalLeft] = useState(0);
   const [calLogged, setCalLogged] = useState(0);
+  const { getLoggedRecipe } = useContext(AppContext);
 
   const getCalCnt = () => {
     if (userSex === 'female') {

@@ -11,23 +11,6 @@ import LogoutButton from './Logout-button.jsx';
 import Search from './Search.jsx';
 
 const App = () => {
-  const [savedRecipes, setSavedRecipes] = useState([]);
-
-  const getSavedRecipes = () => {
-    axios
-      .get('/myrecipes')
-      .then(({ data }) => {
-        setSavedRecipes(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    getSavedRecipes();
-  }, []);
-
   return (
     <div>
       <Typography variant="h3" color="primary" >EatSmart</Typography>
