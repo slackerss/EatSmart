@@ -21,7 +21,7 @@ app.use(express.static(distPath));
 app.post('/search/save', (req, res) => {
   const recipe = req.body;
 
-  console.log(req.body);
+  
   saveRecipe(recipe)
     .then((data) => {
       console.log('recipe saved');
@@ -42,17 +42,6 @@ app.get('/search', (req, res) => {
     .then((response) => {
       const { data } = response;
       res.status(200).send(data);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(500);
-    });
-});
-
-app.get('/myrecipes', (req, res) => {
-  SavedRecipe.find({})
-    .then((recipes) => {
-      res.status(200).send(recipes);
     })
     .catch((err) => {
       console.log(err);
