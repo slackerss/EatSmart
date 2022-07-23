@@ -30,16 +30,14 @@ function Profile() {
 
   //render while page is loading
   if (isLoading) {
-
-    return <h1>Hang on a sec</h1>
-
+    return <h1>Hol up...</h1>;
   }
 
   //render when not logged in
   if (!isAuthenticated) {
     return (
       <div>
-        <h1>Sorry We don't know you</h1>
+        <h1>Who are you</h1>
 
         <Navbar />
         <LoginButton />
