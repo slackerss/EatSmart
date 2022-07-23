@@ -18,7 +18,10 @@ function Profile() {
     axios
       .get('/myrecipes')
       .then(({ data }) => {
-        setSavedRecipes(data);
+        const userRecipes = data.filter((recipe) => {
+          return recipe.User_email === user.email;
+        })
+        setSavedRecipes(userRecipes);
       })
       .catch((err) => {
         console.log(err);
