@@ -49,17 +49,6 @@ app.get('/search', (req, res) => {
     });
 });
 
-app.get('/myrecipes', (req, res) => {
-  SavedRecipe.find({})
-    .then((recipes) => {
-      res.status(200).send(recipes);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(500);
-    });
-});
-
 app.get("/profile/:email", (req, res) => {
   // Destructre req.params for specific user when setting up client side
 
