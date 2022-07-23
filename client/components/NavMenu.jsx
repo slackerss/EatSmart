@@ -17,49 +17,49 @@ function Navmenu() {
     setAnchorEl(e.currentTarget);
   }
 
-const handleMenuClose = () => {
-  setAnchorEl(null);
-}
- 
-const menuItemStyle = {
-  textDecoration: "none",
-  textDecorationColor: "black"
-}
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  }
+
+  const menuItemStyle = {
+    textDecoration: "none",
+    textDecorationColor: "black"
+  }
 
   return (
     <div>
-    <IconButton
-      id="menu-button"
-      size="large"
-      edge="start"
-      color="inherit"
-      aria-controls={open ? 'Eatsmart-menu' : undefined}
-      aria-haspopup="true"
-      aria-expanded={open ? 'true' : undefined}
-      onClick={handleMenuClick}
-      sx={{ mr: 2 }}
-    >
-      <MenuIcon />
-    </IconButton>
-    <Menu 
-    id="Eatsmart-menu"
-    anchorEl={anchorEl}
-    open={open}
-    onClose={handleMenuClose}
-    MenuListProps={{
-      'aria-labelledby': 'menu-button'
-    }}
-    >
-      <MenuItem onClick={handleMenuClose} >
-        <NavLink to="/" style={menuItemStyle} end>Home</NavLink>
-      </MenuItem>
+      <IconButton
+        id="menu-button"
+        size="large"
+        edge="start"
+        color="inherit"
+        aria-controls={open ? 'Eatsmart-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleMenuClick}
+        sx={{ mr: 2 }}
+      >
+        <MenuIcon />
+      </IconButton>
+      <Menu
+        id="Eatsmart-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleMenuClose}
+        MenuListProps={{
+          'aria-labelledby': 'menu-button'
+        }}
+      >
+        <MenuItem onClick={handleMenuClose} >
+          <NavLink to="/" style={menuItemStyle} end>Home</NavLink>
+        </MenuItem>
 
-      <MenuItem onClick={handleMenuClose} >
-      <NavLink to="/profile" style={menuItemStyle} >Profile</NavLink>
-      </MenuItem>
+        <MenuItem onClick={handleMenuClose} >
+          <NavLink to="/profile" style={menuItemStyle} >Profile</NavLink>
+        </MenuItem>
 
-      <LogoutMenuItem />
-    </Menu>
+        <LogoutMenuItem />
+      </Menu>
     </div>
   )
 }
