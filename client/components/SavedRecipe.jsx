@@ -51,6 +51,17 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
     setExpanded(!expanded);
   };
 
+  const getLoggedRecipe = () => {
+    console.log('recipe logged')
+    // axios.get(`/loggedRecipes/${savedRecipe._id}`)
+    //   .then((data) => {
+    //     console.log('recipe logged');
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   })
+  }
+
   return (
     <Card sx={{ maxWidth: 345 }} className="recipe-card">
       <CardHeader
@@ -80,7 +91,7 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
         {/* <Button size='small' onClick={deleteRecipe}>
           Delete
         </Button> */}
-        <Button variant="contained" size='small'>Log Recipe</Button>
+        <Button variant="contained" size='small' onClick={getLoggedRecipe}>Log Recipe</Button>
         <Button variant='contained' size='small' href={savedRecipe.url}>
           View Instructions
         </Button>

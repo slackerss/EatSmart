@@ -8,10 +8,10 @@ const CalorieCalc = ({ userSex, userAge, userHeight, userWeight }) => {
 
   const getCalCnt = () => {
     if (userSex === 'female') {
-      const userCalCnt = (65.51 + (4.35 * userWeight) + (4.7 * userHeight) - (4.7 * userAge));
+      const userCalCnt = Math.round(((65.51 + (4.35 * userWeight) + (4.7 * userHeight) - (4.7 * userAge)) * 1.55) * 100) / 100;
       setCalCnt(userCalCnt);
     } else {
-      const userCalCnt = (66.47 + (6.24 * userWeight) + (12.7 * userHeight) - (6.75 * userAge));
+      const userCalCnt = Math.round(((66.47 + (6.24 * userWeight) + (12.7 * userHeight) - (6.75 * userAge)) * 1.55) * 100) / 100;
       setCalCnt(userCalCnt);
     }
   }
