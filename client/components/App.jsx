@@ -37,9 +37,6 @@ const App = () => {
       <h3>New to Smart?</h3>
       <SignupButton />
       <Search />
-      
-      <CalorieCalc />
-      {/* <SavedRecipesList savedRecipes={savedRecipes} getSavedRecipes={ getSavedRecipes }/> */}
     </div>
   );
 };

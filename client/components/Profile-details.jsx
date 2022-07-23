@@ -4,6 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import axios from 'axios';
+import CalorieCalc from './CalorieCalc.jsx';
 
 //Textfield select
 const sexes = [
@@ -112,6 +113,7 @@ function ProfileDetails(props) {
 
 
   return (
+    <div>
     <Box
       sx={{
         border: "1px",
@@ -172,6 +174,16 @@ function ProfileDetails(props) {
       >Update</Button>
 
     </Box>
+    <br />
+    <Box>
+      <CalorieCalc
+        userSex={userSex}
+        userAge={userAge}
+        userHeight={userHeight}
+        userWeight={userWeight}
+      />
+    </Box>
+    </div>
   )
 }
 

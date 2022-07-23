@@ -5,7 +5,8 @@ import { Auth0Provider } from '@auth0/auth0-react';
 const Auth0ProviderWithNavigate = ({ children }) => {
   const domain = process.env.REACT_APP_AUTH0_DOMAIN;
   const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
-
+  const aud = `https://${domain}/api/v2/`;
+  
   const navigate = useNavigate();
 
   const onRedirectCallback = (appState) => {
@@ -16,8 +17,11 @@ const Auth0ProviderWithNavigate = ({ children }) => {
     <Auth0Provider
       domain={domain}
       clientId={clientId}
+      audience={aud}
       redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
+      useRefreshTokens
+      cacheLocation="localstorage"
     >
       {children}
     </Auth0Provider>
