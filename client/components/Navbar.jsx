@@ -27,6 +27,8 @@ function Navbar () {
         <MenuIcon />
       </IconButton>
     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>EatSmart</Typography>
+    <Link to='/'>Home </Link>
+    <Link to='/profile'>Profile</Link>
     <LoginButton />
       </Toolbar>
       </AppBar>
