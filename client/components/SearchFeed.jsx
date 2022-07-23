@@ -12,6 +12,7 @@ function SearchFeed() {
       <Container>
         <Grid
           container
+          key="Gridmaster"
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
@@ -27,7 +28,7 @@ function SearchFeed() {
               totalNutrients,
             } = recipe;
             return (
-              <Grid item key={index} xs={2} sm={3} md={4}>
+              <Grid item key={uri} xs={2} sm={3} md={4}>
                 <RecipeTile
                   label={label}
                   image={image}
@@ -42,7 +43,7 @@ function SearchFeed() {
                   protein={Math.round(
                     totalNutrients.PROCNT.quantity / recipe.yield
                   )}
-                  key={uri}
+                  key={index}
                   uri={uri}
                   servings={recipe.yield}
                 />

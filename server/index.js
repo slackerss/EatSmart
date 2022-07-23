@@ -21,7 +21,7 @@ app.use(express.static(distPath));
 app.post('/search/save', (req, res) => {
   const recipe = req.body;
 
-  console.log(req.body);
+  
   saveRecipe(recipe)
     .then((data) => {
       console.log('recipe saved');
