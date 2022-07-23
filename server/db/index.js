@@ -43,12 +43,12 @@ const SavedRecipeSchema = new Schema({
     type: String,
     unique: true
   },
-  servings: Number,
-  User_email: String
+  servings: Number 
 });
 const SavedRecipe = model('SavedRecipe', SavedRecipeSchema);
 
 async function saveRecipe(recipe) {
+  console.log(recipe);
   const newRecipe = new SavedRecipe(recipe);
   await newRecipe.save();
 }
