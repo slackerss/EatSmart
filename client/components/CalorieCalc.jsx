@@ -14,17 +14,21 @@ const CalorieCalc = ({ userSex, userAge, userHeight, userWeight }) => {
       const userCalCnt = Math.round(((66.47 + (6.24 * userWeight) + (12.7 * userHeight) - (6.75 * userAge)) * 1.55) * 100) / 100;
       setCalCnt(userCalCnt);
     }
-  }
+  };
 
   const getCalLeft = () => {
-    setCalLeft
-  }
+    setCalLeft;
+  };
 
   useEffect(() => {
     getCalCnt();
-  })
- 
-  return <Container>{calCnt} - 0 = {calCnt}</Container>;
+  });
+
+  return (
+    <Container>
+      {calCnt} - 0 = {calCnt}
+    </Container>
+  );
 };
 
 export default CalorieCalc;

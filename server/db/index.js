@@ -39,10 +39,7 @@ const SavedRecipeSchema = new Schema({
   protein: Number,
   source: String,
   url: String,
-  uri: {
-    type: String,
-    unique: true
-  },
+  uri: String,
   servings: Number,
   User_email: String
 });
