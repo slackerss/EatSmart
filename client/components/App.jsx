@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Typography from '@mui/material/Typography';
 
 import CalorieCalc from './CalorieCalc.jsx';
 import SavedRecipesList from './SavedRecipesList.jsx';
@@ -30,9 +31,9 @@ const App = () => {
 
   return (
     <div>
-      <h1>EatSmart</h1>
+      <Typography variant="h3" color="primary" >EatSmart</Typography>
+  
       <Navbar />
-      <LoginButton />
       <LogoutButton />
       <h3>New to Smart?</h3>
       <SignupButton />
