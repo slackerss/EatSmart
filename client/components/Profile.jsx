@@ -16,7 +16,6 @@ function Profile() {
   const [savedRecipes, setSavedRecipes] = useState([]);
 
   const getSavedRecipes = (user) => {
-    console.log(user);
     axios
       .get('/myrecipes')
       .then(({ data }) => {
