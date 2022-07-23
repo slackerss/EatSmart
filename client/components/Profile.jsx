@@ -7,6 +7,8 @@ import LoginButton from './Login-button.jsx';
 import ProfileDetails from './Profile-details.jsx';
 import SavedRecipesList from './SavedRecipesList.jsx';
 import CalorieCalc from './CalorieCalc.jsx';
+import Typography from '@mui/material/Typography';
+
 
 function Profile() {
   //Auth0
@@ -34,17 +36,18 @@ function Profile() {
 
   //render while page is loading
   if (isLoading) {
-    return <h1>Hol up...</h1>;
+    return <Typography variant="h2" color="primary" >One second...</Typography>;
   }
 
   //render when not logged in
   if (!isAuthenticated) {
     return (
       <div>
-        <h1>Who are you</h1>
+        <Typography variant="h3" color="primary" >EatSmart</Typography>
 
         <Navbar />
-        <LoginButton />
+        <br></br>
+        <Typography variant="h6" color="darkgrey" >You must sign in to view your profile</Typography>
       </div>
     );
   }
@@ -52,14 +55,15 @@ function Profile() {
   return (
     isAuthenticated && (
       <div>
-        <h1>EatSmart</h1>
+        <Typography variant="h3" color="primary" >EatSmart</Typography>
 
         <Navbar />
 
         <img src={user.picture} />
-        <h2>Welcome Back {user.name}</h2>
+        <Typography variant="h5" color="primary" >Welcome Back {user.name}</Typography>
+        <br></br>
         <ProfileDetails user={user} />
-        {/* <CalorieCalc/> */}
+    
         <SavedRecipesList
           savedRecipes={savedRecipes}
           getSavedRecipes={getSavedRecipes}
