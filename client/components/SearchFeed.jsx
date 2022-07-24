@@ -9,7 +9,7 @@ function SearchFeed() {
 
   if (searchResults !== '404') {
     return (
-      <Container>
+      <Container sx={{ pt: 20 }}>
         <Grid
           container
           key='Gridmaster'
