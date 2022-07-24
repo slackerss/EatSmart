@@ -52,7 +52,8 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
     setExpanded(!expanded);
   };
 
-  const handleLogClick = () => {
+  const handleLogClick = (e) => {
+    console.log(e);
     axios.get(`/myrecipes/${savedRecipe._id}`)
       .then(({data}) => {
         console.log(Math.round(data[0].calories));

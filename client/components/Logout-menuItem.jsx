@@ -1,11 +1,11 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import MenuItem from '@mui/material/MenuItem';
 
-
-const LogoutButton = () => {
+const LogoutMenuItem = () => {
   const { logout } = useAuth0();
   return (
-    <button
+    <MenuItem
       className='btn btn-danger btn-block'
       onClick={() =>
         logout({
@@ -14,8 +14,8 @@ const LogoutButton = () => {
       }
     >
       Logout
-    </button>
+    </MenuItem>
   );
 };
 
-export default LogoutButton;
+export default LogoutMenuItem;
