@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Ingredients from './SavedIngredients.jsx';
 import axios from 'axios';
+import { AppContext } from '../context/AppContext.jsx';
 
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -30,9 +31,15 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
-  // const [show, setShow] = useState(false);
+const SavedRecipe = ({
+  savedRecipe,
+  getSavedRecipes,
+  calorieCount,
+  setCalorieCount,
+}) => {
   const [expanded, setExpanded] = useState(false);
+  const [loggedCal, setLoggedCal] = useState(0);
+  // const { getLoggedRecipe } = useContext(AppContext);
 
   const deleteRecipe = () => {
     axios
@@ -48,6 +55,10 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const handleLogClick = (e) => {
+    setCalorieCount((calorieCount += Math.round(e.calories)));
   };
 
   return (
@@ -72,12 +83,15 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        {/* <Button size='small' onClick={() => setShow(!show)}>
-          Ingredients
-        </Button> */}
-        {/* <Button size='small' onClick={deleteRecipe}>
-          Delete
-        </Button> */}
+        <Button
+          variant='contained'
+          size='small'
+          onClick={() => {
+            handleLogClick(savedRecipe);
+          }}
+        >
+          Log Recipe
+        </Button>
         <Button variant='contained' size='small' href={savedRecipe.url}>
           View Instructions
         </Button>
@@ -96,18 +110,7 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
           <Ingredients ingredients={savedRecipe.ingredientLines} />
         </CardContent>
       </Collapse>
-      {/* {show && <Ingredients ingredients={savedRecipe.ingredients} />} */}
     </Card>
-
-    // <div>
-    //   <a href={savedRecipe.recipeLink}> {savedRecipe.name}</a>
-    //   <br />
-    //   <span>{savedRecipe.calories}</span>
-    //   <br />
-    //   <button onClick={() => setShow(!show)}>Ingredients</button>
-    //   <button>Remove Recipe</button>
-    //   {show && <Ingredients ingredients={savedRecipe.ingredients} />}
-    // </div>
   );
 };
 

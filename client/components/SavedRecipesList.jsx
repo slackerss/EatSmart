@@ -4,7 +4,12 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 
-const SavedRecipesList = ({ savedRecipes, getSavedRecipes }) => {
+const SavedRecipesList = ({
+  savedRecipes,
+  getSavedRecipes,
+  calorieCount,
+  setCalorieCount,
+}) => {
   return (
     <Container>
       <Grid
@@ -18,6 +23,8 @@ const SavedRecipesList = ({ savedRecipes, getSavedRecipes }) => {
               savedRecipe={savedRecipe}
               key={index}
               getSavedRecipes={getSavedRecipes}
+              calorieCount={calorieCount}
+              setCalorieCount={setCalorieCount}
             />
           </Grid>
         ))}
