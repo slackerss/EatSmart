@@ -15,6 +15,8 @@ function Profile() {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const [savedRecipes, setSavedRecipes] = useState([]);
+  const [calorieCount, setCalorieCount] = useState(0);
+
 
   const getSavedRecipes = (user) => {
     axios
@@ -62,11 +64,13 @@ function Profile() {
         <img src={user.picture} />
         <Typography variant="h5" color="primary" >Welcome Back {user.name}</Typography>
         <br></br>
-        <ProfileDetails user={user} />
+        <ProfileDetails user={user} calorieCount={calorieCount} setCalorieCount={ setCalorieCount } />
         <br></br>
         <SavedRecipesList
           savedRecipes={savedRecipes}
           getSavedRecipes={getSavedRecipes}
+          calorieCount={calorieCount}
+          setCalorieCount={setCalorieCount}
         />
       </div>
     )

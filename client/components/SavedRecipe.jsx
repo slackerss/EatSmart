@@ -31,7 +31,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
+const SavedRecipe = ({ savedRecipe, getSavedRecipes, calorieCount, setCalorieCount }) => {
   const [expanded, setExpanded] = useState(false);
   const [loggedCal, setLoggedCal] = useState(0);
   // const { getLoggedRecipe } = useContext(AppContext);
@@ -53,15 +53,7 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
   };
 
   const handleLogClick = (e) => {
-    console.log(e);
-    axios.get(`/myrecipes/${savedRecipe._id}`)
-      .then(({data}) => {
-        console.log(Math.round(data[0].calories));
-        setLoggedCal(loggedCal += (Math.round(data[0].calories)));
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    setCalorieCount(calorieCount += Math.round(e.calories))
   }
 
   return (
@@ -86,7 +78,7 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="contained" size='small' onClick={handleLogClick}>Log Recipe</Button>
+        <Button variant="contained" size='small' onClick={ () => { handleLogClick(savedRecipe) } }>Log Recipe</Button>
         <Button variant='contained' size='small' href={savedRecipe.url}>
           View Instructions
         </Button>

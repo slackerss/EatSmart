@@ -20,7 +20,7 @@ const sexes = [
 
 function ProfileDetails(props) {
   // Destructure User from props for handleUpdateOnClick
-  const { user } = props;
+  const { user, calorieCount, setCalorieCount } = props;
 
   //Material-ui: Textfield props
   const inputProps = {
@@ -184,6 +184,8 @@ function ProfileDetails(props) {
           userAge={userAge}
           userHeight={userHeight}
           userWeight={userWeight}
+          calorieCount={calorieCount}
+          setCalorieCount={setCalorieCount}
         />
       </Box>
     </div>
