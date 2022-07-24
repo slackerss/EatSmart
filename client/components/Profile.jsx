@@ -63,7 +63,7 @@ function Profile() {
         <Typography variant="h5" color="primary" >Welcome Back {user.name}</Typography>
         <br></br>
         <ProfileDetails user={user} />
-    
+        <br></br>
         <SavedRecipesList
           savedRecipes={savedRecipes}
           getSavedRecipes={getSavedRecipes}
