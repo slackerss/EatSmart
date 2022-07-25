@@ -37,25 +37,34 @@ const CalorieCalc = ({
   };
 
   return (
-    <Container sx={{
-      textAlign: 'center',
-      p: 2,
-      width: 400,
-      boxShadow: 5
-    }}>
-      <Box sx={{ 
-        fontSize: 24, 
-        }}>
+    <Container
+      sx={{
+        textAlign: 'center',
+        p: 2,
+        width: 400,
+        boxShadow: 5,
+      }}
+    >
+      <Box
+        sx={{
+          fontSize: 24,
+        }}
+      >
         Calorie Calculator
       </Box>
-      <Box sx={{
-        fontSize: 20,
-        p: 2
-      }}>
-        {calCnt} cal goal - {calorieCount} cal logged = {Math.round(calCnt - calorieCount)} cal remaining
+      <Box
+        sx={{
+          fontSize: 20,
+          p: 2,
+        }}
+      >
+        {calCnt} cal goal - {calorieCount} cal logged ={' '}
+        {Math.round(calCnt - calorieCount)} cal remaining
       </Box>
       <Box>
-        <Button variant='contained' onClick={handleResetClick} >Reset</Button>
+        <Button variant='contained' onClick={handleResetClick}>
+          Reset
+        </Button>
       </Box>
     </Container>
   );
