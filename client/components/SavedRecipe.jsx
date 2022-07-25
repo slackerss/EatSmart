@@ -15,6 +15,8 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -57,7 +59,7 @@ const SavedRecipe = ({
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }} className='recipe-card'>
+    <Card sx={{ maxWidth: 345, boxShadow: 7 }} className='recipe-card'>
       <CardHeader
         action={
           <IconButton onClick={deleteRecipe}>
@@ -75,6 +77,13 @@ const SavedRecipe = ({
       <CardContent>
         <Typography gutterBottom variant='h6' component='div'>
           {Math.round(savedRecipe.calories)} Calories
+        </Typography>
+        <Typography>
+          <List>
+            <ListItem>Fat: {savedRecipe.fat} g</ListItem>
+            <ListItem>Carbs: {savedRecipe.carbs} g</ListItem>
+            <ListItem>Protein: {savedRecipe.protein} g</ListItem>
+          </List>
         </Typography>
       </CardContent>
       <CardActions>
