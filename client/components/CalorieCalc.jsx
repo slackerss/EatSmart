@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Container from '@mui/material/Container';
 import { AppContext } from '../context/AppContext.jsx';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 const CalorieCalc = ({
   userSex,
@@ -12,9 +13,6 @@ const CalorieCalc = ({
   setCalorieCount,
 }) => {
   const [calCnt, setCalCnt] = useState(0);
-  const [calLeft, setCalLeft] = useState(0);
-  const [calLogged, setCalLogged] = useState(0);
-  const { getLoggedRecipe } = useContext(AppContext);
 
   const getCalCnt = () => {
     if (userSex === 'female') {
@@ -30,10 +28,6 @@ const CalorieCalc = ({
     }
   };
 
-  const getCalLeft = () => {
-    setCalLeft;
-  };
-
   useEffect(() => {
     getCalCnt();
   });
@@ -43,9 +37,19 @@ const CalorieCalc = ({
   };
 
   return (
-    <Container>
-      {calCnt} - {calorieCount} = {Math.round(calCnt - calorieCount)}
-      <Button onClick={handleResetClick}>Reset</Button>
+    <Container sx={{
+      textAlign: 'center',
+      p: 2,
+      width: 'auto'
+    }}>
+      <Box sx={{
+        fontSize: 24
+      }}>
+        {calCnt} - {calorieCount} = {Math.round(calCnt - calorieCount)}
+      </Box>
+      <Box>
+        <Button variant='outlined' onClick={handleResetClick} >Reset</Button>
+      </Box>
     </Container>
   );
 };
