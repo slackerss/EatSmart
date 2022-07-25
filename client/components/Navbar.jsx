@@ -9,35 +9,22 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-
-
 function Navbar() {
-
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position='static'>
         <Toolbar>
           <NavMenu />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>EatSmart</Typography>
+          <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+            EatSmart
+          </Typography>
           <LoginButton />
           <SignupButton />
         </Toolbar>
       </AppBar>
     </Box>
-  )
+  );
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 // function Navbar() {
 //   return (
