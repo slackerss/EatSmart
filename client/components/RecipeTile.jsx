@@ -17,6 +17,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AppContext } from '../context/AppContext.jsx';
 import Ingredients from './SavedIngredients.jsx';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -92,6 +94,11 @@ export default function RecipeTile({
         <Typography gutterBottom variant='h6' component='div'>
           {Math.round(calories)} Calories
         </Typography>
+        <List>
+          <ListItem>Fat: {recipe.fat} g</ListItem>
+          <ListItem>Carbs: {recipe.carbs} g</ListItem>
+          <ListItem>Protein: {recipe.protein} g</ListItem>
+        </List>
       </CardContent>
       <CardActions disableSpacing>
         <Button variant='contained' size='small' href={url}>
