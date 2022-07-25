@@ -29,15 +29,22 @@ const CalorieCalc = ({ userSex, userAge, userHeight, userWeight, calorieCount, s
     <Container sx={{
       textAlign: 'center',
       p: 2,
-      width: 'auto'
+      width: 400,
+      boxShadow: 5
     }}>
+      <Box sx={{ 
+        fontSize: 24, 
+        }}>
+        Calorie Calculator
+      </Box>
       <Box sx={{
-        fontSize: 24
+        fontSize: 20,
+        p: 2
       }}>
-        {calCnt} - {calorieCount} = {Math.round(calCnt - calorieCount)}
+        {calCnt} cal goal - {calorieCount} cal logged = {Math.round(calCnt - calorieCount)} cal remaining
       </Box>
       <Box>
-        <Button variant='outlined' onClick={handleResetClick} >Reset</Button>
+        <Button variant='contained' onClick={handleResetClick} >Reset</Button>
       </Box>
     </Container>
   );
