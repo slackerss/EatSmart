@@ -9,7 +9,6 @@ import SavedRecipesList from './SavedRecipesList.jsx';
 import CalorieCalc from './CalorieCalc.jsx';
 import Typography from '@mui/material/Typography';
 
-
 function Profile() {
   //Auth0
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -17,14 +16,13 @@ function Profile() {
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [calorieCount, setCalorieCount] = useState(0);
 
-
   const getSavedRecipes = (user) => {
     axios
       .get('/myrecipes')
       .then(({ data }) => {
         const userRecipes = data.filter((recipe) => {
           return recipe.User_email === user.email;
-        })
+        });
         setSavedRecipes(userRecipes);
       })
       .catch((err) => {
@@ -38,18 +36,26 @@ function Profile() {
 
   //render while page is loading
   if (isLoading) {
-    return <Typography variant="h2" color="primary" >One second...</Typography>;
+    return (
+      <Typography variant='h2' color='primary'>
+        One second...
+      </Typography>
+    );
   }
 
   //render when not logged in
   if (!isAuthenticated) {
     return (
       <div>
-        <Typography variant="h3" color="primary" >EatSmart</Typography>
+        <Typography variant='h3' color='primary'>
+          EatSmart
+        </Typography>
 
         <Navbar />
         <br></br>
-        <Typography variant="h6" color="darkgrey" >You must sign in to view your profile</Typography>
+        <Typography variant='h6' color='darkgrey'>
+          You must sign in to view your profile
+        </Typography>
       </div>
     );
   }
@@ -57,14 +63,22 @@ function Profile() {
   return (
     isAuthenticated && (
       <div>
-        <Typography variant="h3" color="primary" >EatSmart</Typography>
+        <Typography variant='h3' color='primary'>
+          EatSmart
+        </Typography>
 
         <Navbar />
 
         <img src={user.picture} />
-        <Typography variant="h5" color="primary" >Welcome Back {user.name}</Typography>
+        <Typography variant='h5' color='primary'>
+          Welcome Back {user.name}
+        </Typography>
         <br></br>
-        <ProfileDetails user={user} calorieCount={calorieCount} setCalorieCount={ setCalorieCount } />
+        <ProfileDetails
+          user={user}
+          calorieCount={calorieCount}
+          setCalorieCount={setCalorieCount}
+        />
         <br></br>
         <SavedRecipesList
           savedRecipes={savedRecipes}
