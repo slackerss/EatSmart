@@ -22,6 +22,7 @@ function Profile() {
     axios
       .get('/myrecipes')
       .then(({ data }) => {
+        console.log(data);
         const userRecipes = data.filter((recipe) => {
           return recipe.User_email === user.email;
         })
