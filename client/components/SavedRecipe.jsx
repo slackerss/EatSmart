@@ -29,7 +29,12 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const SavedRecipe = ({ savedRecipe, getSavedRecipes, calorieCount, setCalorieCount }) => {
+const SavedRecipe = ({
+  savedRecipe,
+  getSavedRecipes,
+  calorieCount,
+  setCalorieCount,
+}) => {
   const [expanded, setExpanded] = useState(false);
   const { user, isAuthenticated, isLoading } = useAuth0();
 
@@ -50,8 +55,8 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes, calorieCount, setCalorieCou
   };
 
   const handleLogClick = (e) => {
-    setCalorieCount(calorieCount += Math.round(e.calories))
-  }
+    setCalorieCount((calorieCount += Math.round(e.calories)));
+  };
 
   return (
     <Card sx={{ maxWidth: 345, boxShadow: 7 }} className='recipe-card'>
@@ -82,7 +87,15 @@ const SavedRecipe = ({ savedRecipe, getSavedRecipes, calorieCount, setCalorieCou
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="contained" size='small' onClick={ () => { handleLogClick(savedRecipe) } }>Log Recipe</Button>
+        <Button
+          variant='contained'
+          size='small'
+          onClick={() => {
+            handleLogClick(savedRecipe);
+          }}
+        >
+          Log Recipe
+        </Button>
         <Button variant='contained' size='small' href={savedRecipe.url}>
           View Instructions
         </Button>

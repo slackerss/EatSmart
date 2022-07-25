@@ -18,7 +18,7 @@ const UserProfile = new Schema({
   connection: String,
   email: {
     type: String,
-    unique: true
+    unique: true,
   },
   weight: Number,
   height: Number,
@@ -27,7 +27,6 @@ const UserProfile = new Schema({
   recipeList: String,
   calorieCount: Number,
 });
-
 
 const SavedRecipeSchema = new Schema({
   label: String,
@@ -41,7 +40,7 @@ const SavedRecipeSchema = new Schema({
   url: String,
   uri: String,
   servings: Number,
-  User_email: String
+  User_email: String,
 });
 const SavedRecipe = model('SavedRecipe', SavedRecipeSchema);
 
