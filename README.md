@@ -18,6 +18,14 @@ Health/Food
 
 # API 
 https://developer.edamam.com/edamam-docs-recipe-api
+Sign up for API Key using the above link.
+
+# MongoDb Cloud Atlas
+https://www.mongodb.com/basics/mongodb-atlas-tutorial
+
+# AWS
+For Linux users: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html
+For Windows users: https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/EC2_GetStarted.html
 
 # Installation and Start-up
 ## Server/initial Setup
@@ -33,12 +41,3 @@ https://developer.edamam.com/edamam-docs-recipe-api
 2. the RECIPES_API_KEY and API_ID are for the edamam recipe search api
 3. Our application uses auth0, The last two variables in the .env example are for the domain key and client id which auth0 provides after you set up your application. Keep in mind when setting up auth0 that this is a single page react application.
 https://auth0.com/docs/quickstart/spa/react/interactive this link will help getting auth0 setup for this project.
-
-# Developer Guide
-
-## Client Side
-### SavedRecipeList
-1. SavedRecipeList is rendered through the Profile component.
-2. 
-
-## Server Side
